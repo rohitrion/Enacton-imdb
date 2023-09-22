@@ -1,24 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./Pages/Home";
+import Navbar from "./Component/Navbar";
+import Footer from "./Component/Footer";
+import Singlemovie from "./Pages/Singlemovie";
+import Watchlist from "./Pages/Watchlist";
+import Login from "./Firebase/Login";
+import Signup from "./Firebase/Signup";
+import { useEffect, useState } from "react";
+import { auth } from "./Firebase/firebase";
+import { useRecoilState } from "recoil";
+import { login} from "./recoil";
 function App() {
+  
+  const [username, setUsername] = useState(''); // Display name
+  // const [log, setLog] = useState(false); // Indicates if user is logged in
+  // const navigate = useNavigate();
+ 
+
+
+  const [log, setLog] = useRecoilState(login);
+ 
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUsername(user.displayName);
+        setLog(true);
+        
+      } else {
+        setUsername('');
+        setLog(false);
+        // navigate('/');
+      }
+    });
+  }, []);
+
+
+
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+                     {/* */}
+      <BrowserRouter>
+        <Navbar   name={username} log={log}  />
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/movie/:id" element={<Singlemovie />} />
+
+          <Route path="/watchlist" element={ log ? <Watchlist /> : <Login  /> }     />    
+
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </>
   );
 }
 

@@ -10,8 +10,8 @@ function Login() {
     pass: "",
   });
 
-  const [error, setError] = useState(""); // for error state
-  const [submitDisable, setSubmitDisable] = useState(false); // for disable button for API
+  const [error, setError] = useState(""); 
+  const [submitDisable, setSubmitDisable] = useState(false); 
 
   const handleSubmit = (e) => {
     e.preventDefault();

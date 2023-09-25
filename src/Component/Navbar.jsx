@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import imdb from "../Assets/lo.png";
-import { json, Link, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate, } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { charCountState, login, Moviedata, numState } from "../recoil";
 import { stringify } from "postcss";
@@ -17,9 +17,15 @@ const Navbar = ({log,name}) => {
  
   
  console.log(log)
-
+ 
 
   const navigate = useNavigate()
+
+ function hanldeclick(id){
+  navigate(`/movie/${id}`)
+  setInput('')
+  setMovies([])
+ }
 
   const handleLogout = () => {
     signOut(auth).then(() => {          // Sign-out successful.
@@ -48,6 +54,7 @@ const Navbar = ({log,name}) => {
   function hanldeinput(e) {
     const inputValue = e.target.value;
     setInput(inputValue);
+
   }
 
 
@@ -110,7 +117,7 @@ const Navbar = ({log,name}) => {
               <path fill="none" d="M0 0h24v24H0V0z"></path>
               <path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z"></path>
             </svg>
-            <span className="pl-1">Menu  </span>
+            <span   className="pl-1">Menu  </span>
           </div>
           {/*
            */}
@@ -144,8 +151,8 @@ const Navbar = ({log,name}) => {
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
                 <ul className="">
                   {movies.slice(1, 7).map((movie) => (
-                    <Link to={`/movie/${movie.id}`}>
-                      <div className="h-[100px]  p-3 border-[grey] border-b-2 hover:bg-slate-500 ">
+                    // <Link to={`/movie/${movie.id}`}>
+                      <div  onClick={()=>hanldeclick(movie.id)} className="h-[100px]    p-3 border-[grey] border-b-2 hover:bg-slate-500 ">
                         <li key={movie.id} className="mb-2 flex items-center">
                           {movie.poster_path && (
                             <img
@@ -162,7 +169,7 @@ const Navbar = ({log,name}) => {
                           </div>
                         </li>
                       </div>
-                    </Link>
+                    // </Link>
                   ))}
                 </ul>
               </div>

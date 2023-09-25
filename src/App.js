@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { auth } from "./Firebase/firebase";
 import { useRecoilState } from "recoil";
 import { login } from "./recoil";
+import Error from "./Pages/Error";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -31,6 +32,7 @@ function App() {
 
   return (
     <>
+  
       <BrowserRouter>
         <Navbar name={username} log={log} />
         <Routes>
@@ -43,6 +45,8 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/signup" element={<Signup />} />
+   
+          <Route  path="/*"  element={<Error/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

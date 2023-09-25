@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Toprated = () => {
   const [movies, setMovies] = useState([]);
-
   const settings = {
     dots: true,
     infinite: true,
@@ -24,13 +23,14 @@ const Toprated = () => {
       );
       const data = await response.json();
       setMovies(data.results);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
-    fetchMovies();
+    console.log(movies, "top ratyed");
+    if (movies.length == 0) {
+      fetchMovies();
+    }
   }, []);
 
   return (

@@ -8,11 +8,8 @@ import { auth } from "../Firebase/firebase";
 
 const Navbar = ({ log, name }) => {
   const [num, setnum] = useRecoilState(Moviedata);
-
   const [movies, setMovies] = useState([]);
   const [input, setInput] = useState("");
-
-  console.log(log);
 
   const navigate = useNavigate();
 
@@ -133,6 +130,13 @@ const Navbar = ({ log, name }) => {
                 onChange={(e) => hanldeinput(e)}
               />
             </div>
+            {movies.length === 0 && input && (
+              <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
+                <div className="text-white font-semibold p-2">
+                  No movies found for "{input}".
+                </div>
+              </div>
+            )}
 
             {movies.length > 0 && (
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">

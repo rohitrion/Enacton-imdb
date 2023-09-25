@@ -5,7 +5,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 const Movielist = () => {
   const [movies, setMovies] = useState([]);
-
   const settings = {
     dots: true,
     infinite: true,

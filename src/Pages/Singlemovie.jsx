@@ -29,7 +29,7 @@ const Singlemovie = () => {
 
   const navigate = useNavigate();
 
-  function handleadd() {
+  function handleAdd() {
     if (!log) {
       navigate("/login");
     } else {
@@ -91,9 +91,9 @@ const Singlemovie = () => {
         </div>
       </div>
 
-      <div className="absolute top-5 left-6" onClick={handleadd}>
+      <div className="absolute top-5 left-6" onClick={handleAdd}>
         {toggle ? (
-          <img className="cursor-pointer " src={addimg} />
+          <img className="cursor-pointer " src={addimg} alt="logo" />
         ) : (
           <span className="text-[30px] cursor-pointer ">✅</span>
         )}

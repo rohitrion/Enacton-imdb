@@ -35,7 +35,7 @@ const Card = ({ movie }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 800);
   }, []);
 
   useEffect(() => {

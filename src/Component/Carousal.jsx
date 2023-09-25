@@ -1,18 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useRecoilState } from "recoil";
-import { Moviedata, textState } from "../recoil";
-
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import { Link } from "react-router-dom";
 import Card from "./Card";
 
 const Carousal = () => {
   const [movies, setMovies] = useState([]);
-  const [toggle, settoggle] = useState(true);
-  const [cart, setCart] = useRecoilState(Moviedata);
+
   async function fetchMovies() {
     try {
       const response = await fetch(
@@ -24,25 +19,11 @@ const Carousal = () => {
       console.error("Error fetching data:", error);
     }
   }
-  console.log(movies);
-
-  function hanldeadd(movie) {
-    const itemExists = cart.some((item) => item.id === movie.id);
-
-    if (!itemExists) {
-      // If the item is not in the cart, add it
-      setCart([...cart, movie]);
-      settoggle(false);
-    } else {
-      const updatedCart = cart.filter((item) => item.id !== movie.id);
-      setCart(updatedCart);
-      settoggle(true);
-    }
-  }
 
   useEffect(() => {
     fetchMovies();
   }, []);
+
   return (
     <>
       <div className="bg-[#000000] text-white py-8 " id="carousal-section">
@@ -58,99 +39,28 @@ const Carousal = () => {
             >
               {movies?.map((item) => {
                 return (
-                  <>
-                    {/* <Link to={`/movie/${item.id}`}> */}
-                      <div  key={item.id} className="relative">
-                        <div className=" key={item.id}  ">
-                          <div className="h-[550px]  w-[100%] ">
-                            <img
-                              className="h-full  w-[100%] block object-cover "
-                              src={`https://image.tmdb.org/t/p/original/${
-                                item && item.backdrop_path
-                              }`}
-                              alt="ikh"
-                            />
-                          </div>
-                          <div className="flex absolute left-[20px] top-[250px]">    <Card  movie={item} />
-                          
-                           <div className="mt-[120px]">
-                             <span>Rating:⭐{item ? item.vote_average : ""}</span>
-                             <p> {item ? item.overview.slice(0, 118) + "..." : ""}</p>
-                             </div>
-                          </div>
-                       
-                          {/* <div className="flex gap-5 items-center  mx-auto absolute bottom-1 left-4">
-                            <div className="h-[200px]  w-[300px] object-contain  ">
-                              <img
-                                src={`https://image.tmdb.org/t/p/original/${
-                                  item && item.poster_path
-                                }`}
-                                alt="ikh"
-                              />
-                            </div>
-
-                            <div className="">
-                              <h1>{item.original_title}</h1>
-                              <p>⭐{item.vote_average}</p>
-                              <p>{item.overview.slice(0, 90)}</p>
-                            </div>
-                          </div> */}
+                  <div key={item.id} className="relative">
+                    <div className=" key={item.id}  ">
+                      <div className="h-[550px]  w-[100%] ">
+                        <img
+                          className="h-full  w-[100%] block object-cover "
+                          src={`https://image.tmdb.org/t/p/original/${
+                            item && item.backdrop_path
+                          }`}
+                          alt="ikh"
+                        />
+                      </div>
+                      <div className="flex absolute left-[20px] top-[250px]">
+                        <Card movie={item} />
+                        <div className="mt-[120px]">
+                          <span>Rating:⭐{item ? item.vote_average : ""}</span>
+                          <p>
+                            {item ? item.overview.slice(0, 118) + "..." : ""}
+                          </p>
                         </div>
-                        {/* <div className="absolute bottom-[150px]  left-4">
-                          <svg
-                            className="ipc-watchlist-ribbon__bg"
-                            width="39px"
-                            height="53px"
-                            fill="#DCB116"
-                            viewBox="0 0 24 34"
-                            xmlns="http://www.w3.org/2000/svg"
-                            role="presentation"
-                          >
-                            <polygon
-                              className="ipc-watchlist-ribbon__bg-ribbon"
-                              fill="#DCB116"
-                              points="24 0 0 0 0 32 12.2436611 26.2926049 24 31.7728343"
-                            ></polygon>
-                            <polygon
-                              className="ipc-watchlist-ribbon__bg-hover"
-                              points="24 0 0 0 0 32 12.2436611 26.2926049 24 31.7728343"
-                            ></polygon>
-                            <polygon
-                              className="ipc-watchlist-ribbon__bg-shadow"
-                              points="24 31.7728343 24 33.7728343 12.2436611 28.2926049 0 34 0 32 12.2436611 26.2926049"
-                            ></polygon>
-                          </svg>
-                        </div> */}
-
-                        {/* <div
-                     onClick={(e) => {
-                      e.preventDefault(); // Prevent navigation
-                      hanldeadd(item);
-                    }}
-                          className="absolute bottom-[160px]  cursor-pointer  left-4"
-                        >
-                          {toggle ? (
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke-width="1.5"
-                              stroke="#000000"
-                              class="w-9 h-9 undefined"
-                            >
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 4.5v15m7.5-7.5h-15"
-                              ></path>
-                            </svg>
-                          ) : (
-                            <span className="text-[30px]">✅</span>
-                          )}
-                        </div> */}
-                      </div>{" "}
-                    {/* </Link>{" "} */}
-                  </>
+                      </div>
+                    </div>
+                  </div>
                 );
               })}
             </Carousel>

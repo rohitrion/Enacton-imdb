@@ -1,6 +1,4 @@
-// src/App.js
 import React from "react";
-
 function Footer() {
   return (
     <footer className="bg-gray-900 text-gray-200 mt-6 py-3">

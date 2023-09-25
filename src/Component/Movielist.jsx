@@ -3,8 +3,6 @@ import Card from "./Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link } from "react-router-dom";
-import Carousal from "./Carousal";
 const Movielist = () => {
   const [movies, setMovies] = useState([]);
 
@@ -46,7 +44,6 @@ const Movielist = () => {
           {movies.map((item) => (
             <div key={item.id} className="flex gap-[20px] overflow-hidden">
               <Card movie={item} />
-         
             </div>
           ))}
         </Slider>

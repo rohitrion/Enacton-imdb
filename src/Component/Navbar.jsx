@@ -1,43 +1,36 @@
 import React, { useState, useEffect } from "react";
 import imdb from "../Assets/lo.png";
-import { json, Link, useNavigate, } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { charCountState, login, Moviedata, numState } from "../recoil";
-import { stringify } from "postcss";
+import { Link, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { Moviedata } from "../recoil";
 import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 
-const Navbar = ({log,name}) => {
-  // const num = useRecoilValue(Moviedata);
-
+const Navbar = ({ log, name }) => {
   const [num, setnum] = useRecoilState(Moviedata);
 
   const [movies, setMovies] = useState([]);
   const [input, setInput] = useState("");
- 
-  
- console.log(log)
- 
 
-  const navigate = useNavigate()
+  console.log(log);
 
- function hanldeclick(id){
-  navigate(`/movie/${id}`)
-  setInput('')
-  setMovies([])
- }
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut(auth).then(() => {          // Sign-out successful.
-      console.log("Signed out successfully")
-    }).catch((error) => {
-      console.log(error)
-    });
-
+  function hanldeclick(id) {
+    navigate(`/movie/${id}`);
+    setInput("");
+    setMovies([]);
   }
 
-
-
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        console.log("Signed out successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   async function fetchMovies(query) {
     try {
@@ -54,25 +47,20 @@ const Navbar = ({log,name}) => {
   function hanldeinput(e) {
     const inputValue = e.target.value;
     setInput(inputValue);
-
   }
-
 
   useEffect(() => {
     localStorage.setItem("num", JSON.stringify(num));
   }, [num]);
- 
 
-   useEffect(()=>{
-   if(input){
-    fetchMovies(input)
-   }
-   else{
-    setMovies([])
-   }
-   },[input])
+  useEffect(() => {
+    if (input) {
+      fetchMovies(input);
+    } else {
+      setMovies([]);
+    }
+  }, [input]);
 
- 
   return (
     <div className="bg-[#121212] text-white  ">
       <div className="container py-3 ">
@@ -117,10 +105,9 @@ const Navbar = ({log,name}) => {
               <path fill="none" d="M0 0h24v24H0V0z"></path>
               <path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z"></path>
             </svg>
-            <span   className="pl-1">Menu  </span>
+            <span className="pl-1">Menu </span>
           </div>
-          {/*
-           */}
+
           <div className="flex mx-[8px] items-center bg-white  text-black w-[100%] min-h-[12px] rounded-md ">
             <div className="flex pr-1 pl-3   ">
               <span>All </span>
@@ -151,25 +138,26 @@ const Navbar = ({log,name}) => {
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
                 <ul className="">
                   {movies.slice(1, 7).map((movie) => (
-                    // <Link to={`/movie/${movie.id}`}>
-                      <div  onClick={()=>hanldeclick(movie.id)} className="h-[100px]    p-3 border-[grey] border-b-2 hover:bg-slate-500 ">
-                        <li key={movie.id} className="mb-2 flex items-center">
-                          {movie.poster_path && (
-                            <img
-                              src={`https://image.tmdb.org/t/p/w154${movie.poster_path}`}
-                              alt={`${movie.title} Poster`}
-                              className="w-[70px] h-[70px] object-cover mr-2"
-                            />
-                          )}
-                          <div>
-                            <div className="font-semibold">{movie.title}</div>
-                            <div className="text-sm text-gray-500">
-                              {movie.release_date}
-                            </div>
+                    <div
+                      onClick={() => hanldeclick(movie.id)}
+                      className="h-[100px]    p-3 border-[grey] border-b-2 hover:bg-slate-500 "
+                    >
+                      <li key={movie.id} className="mb-2 flex items-center">
+                        {movie.poster_path && (
+                          <img
+                            src={`https://image.tmdb.org/t/p/w154${movie.poster_path}`}
+                            alt={`${movie.title} Poster`}
+                            className="w-[70px] h-[70px] object-cover mr-2"
+                          />
+                        )}
+                        <div>
+                          <div className="font-semibold">{movie.title}</div>
+                          <div className="text-sm text-gray-500">
+                            {movie.release_date}
                           </div>
-                        </li>
-                      </div>
-                    // </Link>
+                        </div>
+                      </li>
+                    </div>
                   ))}
                 </ul>
               </div>
@@ -218,10 +206,13 @@ const Navbar = ({log,name}) => {
               <Link to="/watchlist">
                 <span className="text-[16px] font-medium ">
                   Watchlist
-                  { log &&  num!=0 ?
-                  <span className=" bg-amber-300 ml-2 text-[20px] border rounded px-[4px]">
-                    { num.length }
-                  </span>: "" }
+                  {log && num != 0 ? (
+                    <span className=" bg-amber-300 ml-2 text-[20px] border rounded px-[4px]">
+                      {num.length}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </span>
               </Link>
             </div>
@@ -244,10 +235,15 @@ const Navbar = ({log,name}) => {
               </svg>
             </div>
 
-            {
-              log?<span><b>{name}</b></span>: <Link to="/login"><button>Signin</button></Link> 
-            }  
-
+            {log ? (
+              <span>
+                <b>{name}</b>
+              </span>
+            ) : (
+              <Link to="/login">
+                <button>Signin</button>
+              </Link>
+            )}
 
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -264,12 +260,14 @@ const Navbar = ({log,name}) => {
           </div>
 
           <div className="flex  pr-4 pl-1 ">
+            {log ? (
+              <button className="mr-2" onClick={handleLogout}>
+                Signout{" "}
+              </button>
+            ) : (
+              ""
+            )}
 
-
-          {log?
-         <button className="mr-2" onClick={handleLogout}>Signout </button>:""
-                                                                                }
-        
             <span>EN</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"

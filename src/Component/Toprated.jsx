@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Slider from "react-slick";
@@ -15,7 +14,7 @@ const Toprated = () => {
     slidesToShow: 5,
     slidesToScroll: 5,
     autoplay: true,
-    autoplaySpeed: 1000, 
+    autoplaySpeed: 1000,
   };
 
   async function fetchMovies() {
@@ -37,11 +36,13 @@ const Toprated = () => {
   return (
     <div className="py-[20px] bg-black">
       <div className="container">
-    <div>
-      <h1 class="text-3xl pb-2 text-yellow-400 font-bold">Fan Favourites</h1>
-      <h2 class="text-2xl pb-1 text-white font-bold">Upcoming</h2>
-      <h3 className="text-gray-500 pb-4">Movies for you</h3>
-    </div>
+        <div>
+          <h1 class="text-3xl pb-2 text-yellow-400 font-bold">
+            Fan Favourites
+          </h1>
+          <h2 class="text-2xl pb-1 text-white font-bold">Upcoming</h2>
+          <h3 className="text-gray-500 pb-4">Movies for you</h3>
+        </div>
         <Slider {...settings}>
           {movies.map((item) => (
             <div key={item.id} className="flex gap-[20px] overflow-hidden">

@@ -1,30 +1,30 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
 
 function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    email: '',
-    pass: '',
+    email: "",
+    pass: "",
   });
 
-  const [error, setError] = useState(''); // for error state
+  const [error, setError] = useState(""); // for error state
   const [submitDisable, setSubmitDisable] = useState(false); // for disable button for API
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!values.email || !values.pass) {
-      setError('Please Fill All Fields');
+      setError("Please Fill All Fields");
       return;
     }
-    setError('');
+    setError("");
     setSubmitDisable(true);
     signInWithEmailAndPassword(auth, values.email, values.pass)
       .then((res) => {
         setSubmitDisable(false);
-        navigate('/watchlist');
+        navigate("/watchlist");
         console.log(res);
       })
       .catch((err) => {
@@ -47,22 +47,17 @@ function Login() {
             stroke="currentColor"
           >
             <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-            <path
-              d="M12 14l9-5-9-5-9 5 9 5z"
-              strokeLinejoin="round"
-            ></path>
+            <path d="M12 14l9-5-9-5-9 5 9 5z" strokeLinejoin="round"></path>
           </svg>
-          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">
-            Log in
-          </h2>
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Log in</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Or{' '}
+            Or{" "}
             <Link to="/signup" className="font-medium text-indigo-600">
               Register here
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={(e)=>handleSubmit(e)}>
+        <form className="mt-8 space-y-6" onSubmit={(e) => handleSubmit(e)}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">

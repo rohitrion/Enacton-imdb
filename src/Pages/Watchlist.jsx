@@ -15,7 +15,6 @@ const options = [
 
 const Watchlist = () => {
   const All = useRecoilValue(Moviedata);
-
   const [data, setdata] = useRecoilState(Moviedata);
   const [loading, setLoading] = useState(true);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -34,9 +33,9 @@ const Watchlist = () => {
   }, []);
 
   useEffect(() => {
-    // Define a function to sort and filter the data
+    //  filter the data
     const sortAndFilterData = () => {
-      let newData = [...All]; // Clone the original data
+      let newData = [...All];
       if (selectedOption) {
         switch (selectedOption.value) {
           case "IMDb Rating":
@@ -65,14 +64,12 @@ const Watchlist = () => {
             break;
         }
       }
-      // Update the state with the sorted data
+      // Update
       setSortedAndFilteredData(newData);
     };
 
-    // Call the sorting and filtering function
     sortAndFilterData();
   }, [selectedOption, All]);
-
 
   return (
     <div className="h-[600px] overflow-x-hidden overflow-y-scroll bg-white">
@@ -115,32 +112,24 @@ const Watchlist = () => {
           </div>
 
           <div className="mt-9">
-
-          {All.length === 0 && (
-                <div id="no-list" className="py-8">
-                  <div className="flex justify-center">
-                    {/* <BookMarkPlusIcon
-                      fillColor="#B6B6B6"
-                      height="130px"
-                      width="130px"
-                    /> */}
+            {All.length === 0 && (
+              <div id="no-list" className="py-8">
+                <div className="flex justify-center"></div>
+                <div className=" w-3/4 mx-auto text-center leading-8">
+                  <div>Your WatchList is empty</div>
+                  <div>
+                    Add movies and shows to your Watchlist to keep track of what
+                    you want to watch.
                   </div>
-                  <div className=" w-3/4 mx-auto text-center leading-8">
-                    <div>Your WatchList is empty</div>
-                    <div>
-                      Add movies and shows to your Watchlist to keep track of
-                      what you want to watch.
-                    </div>
-                    <div>
-                      <a href="#">Browse Popular TV Shows</a>
-                    </div>
-                    <div>
-                      <a href="#">Browse Popular Movies</a>
-                    </div>
+                  <div>
+                    <a href="#">Browse Popular TV Shows</a>
+                  </div>
+                  <div>
+                    <a href="#">Browse Popular Movies</a>
                   </div>
                 </div>
-              )}
-    
+              </div>
+            )}
 
             {loading ? (
               <div>

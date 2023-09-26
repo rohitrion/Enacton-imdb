@@ -36,7 +36,7 @@ function App() {
       <BrowserRouter>
         <Navbar name={username} log={log} />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" exact  element={<Home />} />
 
           <Route path="/movie/:id" element={<Singlemovie />} />
 

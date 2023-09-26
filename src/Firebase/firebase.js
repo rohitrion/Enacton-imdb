@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyAhMpP2a1LLERL-OGPElce9KIYrJD5GD3k",
   authDomain: "imdb-clone-project-cdf59.firebaseapp.com",
@@ -11,6 +13,7 @@ const firebaseConfig = {
   measurementId: "G-P7EXSYQZ1E",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 

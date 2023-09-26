@@ -27,10 +27,9 @@ const Toprated = () => {
   }
 
   useEffect(() => {
-    console.log(movies, "top rated");
-    if (movies.length == 0) {
+
       fetchMovies();
-    }
+    
   }, []);
 
   return (

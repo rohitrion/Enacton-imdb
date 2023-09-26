@@ -64,7 +64,7 @@ const Carousal = () => {
                 );
               })}
             </Carousel>
-          </div>
+          </div> 
           <div className="">
             <div class="font-bold text-[25px] my-4 text-[yellow]">Up Next</div>
 

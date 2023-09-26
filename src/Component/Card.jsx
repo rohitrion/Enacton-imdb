@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import { login, Moviedata } from "../recoil";
 import { useRecoilState, useRecoilValue } from "recoil";
+
 const Card = ({ movie }) => {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useRecoilState(Moviedata);

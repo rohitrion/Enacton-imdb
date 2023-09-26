@@ -1,8 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-
-
 const firebaseConfig = {
   apiKey: "AIzaSyAhMpP2a1LLERL-OGPElce9KIYrJD5GD3k",
   authDomain: "imdb-clone-project-cdf59.firebaseapp.com",

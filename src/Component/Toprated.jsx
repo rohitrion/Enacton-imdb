@@ -55,3 +55,4 @@ const Toprated = () => {
 };
 
 export default Toprated;
+  

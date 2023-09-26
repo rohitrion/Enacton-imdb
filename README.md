@@ -1,70 +1,57 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. login layout 
+    - create layout component
+    - check login
+    - also show loader in this
+2. remove header for single movie info screen
+3. add to watch list by user_id
+4. use axios 
+5. create custom hooks for API calls
+6. create two button component for next and previous
+    - carousal
+    - slick
+7. use debounce in search
+    - show loader while api is calling
+8. sorting and filtering using query params
+9. API calling fix 
+10. remove settimeout loaders
+11. create svg image components
+12. Footer
+    - config.js
+        const footerList = [
+            {
+                name : "Get TMDB Tab",
+                className : "p-1",
+                link : "https://google.com"
+            },
+            ...     
+        ]
+13. confirmation message before logout
+14. Show skelaton loader for single movie page
+15. create component for input
+16. Show loader in login button
+17. Show loader in singup/logout
+18. Check 404 page
+    - do not reload the page on go to home button
+19. remove ternory operator
+20. Routes using config
+    - config.js
+        const routes = [
+            {
+                name:"Home",
+                route:"/home",
+                component: <Home/>
+                active: true,
+                isAuth: true
+            },
+            ...
+        ]
+21. Add local validation for login & singup
+    -  login
+        - username , password (show hide button for password)
+    - signup
+        - name, email, password required
+        - email validation
+        - password length validation
+        - contain uppercase, lowercase, number, 1 special char, minimum length 8
+        - do not call firebase API if validation fail
+    

@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
 import Home from "./Pages/Home";
 import Navbar from "./Component/Navbar";
 import Footer from "./Component/Footer";
@@ -32,11 +32,10 @@ function App() {
 
   return (
     <>
-  
-      <BrowserRouter>
+      <HashRouter>
         <Navbar name={username} log={log} />
         <Routes>
-          <Route path="/" exact  element={<Home />} />
+          <Route path="/" exact element={<Home />} />
 
           <Route path="/movie/:id" element={<Singlemovie />} />
 
@@ -45,11 +44,11 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/signup" element={<Signup />} />
-   
-          <Route  path="/*"  element={<Error/>} />
+
+          <Route path="/*" element={<Error />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }

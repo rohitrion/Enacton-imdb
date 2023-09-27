@@ -32,7 +32,7 @@ function App() {
 
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <Navbar name={username} log={log} />
         <Routes>
           <Route path="/" exact element={<Home />} />
@@ -48,7 +48,7 @@ function App() {
           <Route path="/*" element={<Error />} />
         </Routes>
         <Footer />
-      </HashRouter>
+      </BrowserRouter>
     </>
   );
 }

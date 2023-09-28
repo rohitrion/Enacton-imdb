@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
+import { ThreeDots } from 'react-loader-spinner'
 
 function Login() {
   const navigate = useNavigate();
@@ -10,8 +11,8 @@ function Login() {
     pass: "",
   });
 
-  const [error, setError] = useState(""); 
-  const [submitDisable, setSubmitDisable] = useState(false); 
+  const [error, setError] = useState("");
+  const [submitDisable, setSubmitDisable] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -112,7 +113,20 @@ function Login() {
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               disabled={submitDisable}
             >
-              Log in
+              {submitDisable ? (
+                <ThreeDots
+                  height="20"
+                  width="40"
+                  radius="9"
+                  color="#4fa94d"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              ) : (
+                "Log in"
+              )}
             </button>
           </div>
         </form>
@@ -122,3 +136,5 @@ function Login() {
 }
 
 export default Login;
+
+

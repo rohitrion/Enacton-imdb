@@ -7,6 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link, useNavigate } from "react-router-dom";
 import { login, Moviedata } from "../recoil";
 import { useRecoilState, useRecoilValue } from "recoil";
+import { PlusIcon } from "./Utils/icons";
 
 const Card = ({ movie }) => {
   const [loading, setLoading] = useState(true);
@@ -81,20 +82,8 @@ const Card = ({ movie }) => {
         onClick={hanldeadd}
       >
         {toggle ? (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="#000000"
-            class="w-9 h-9 undefined"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 4.5v15m7.5-7.5h-15"
-            ></path>
-          </svg>
+       
+         <PlusIcon/>
         ) : (
           <span className="text-[30px]">✅</span>
         )}

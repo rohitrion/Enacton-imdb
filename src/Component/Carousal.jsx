@@ -4,6 +4,7 @@ import { useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import Card from "./Card";
+import { Videoicon } from "./Utils/icons";
 
 const Carousal = () => {
   const [movies, setMovies] = useState([]);
@@ -37,7 +38,7 @@ const Carousal = () => {
               showStatus={false}
               showIndicators={false}
             >
-              {movies.map((item) => {
+              {movies?.map((item) => {
                 return (
                   <div key={item.id} className="relative">
                     <div className=" key={item.id}  ">
@@ -82,20 +83,8 @@ const Carousal = () => {
                   </div>
 
                   <div className="h-[30px]">
-                    <div>
-                      <svg
-                        width="32"
-                        height="32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="group-hover:cursor-pointer group-hover:text-yellow-default ipc-icon ipc-icon--play-circle-outline-large-inline ipc-icon--inline sc-d4cb23a2-14 ejjmJF editorial-play-icon'
-      id='iconContext-play-circle-outline-large-inline"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        role="presentation"
-                      >
-                        <path d="M10.803 15.932l4.688-3.513a.498.498 0 0 0 0-.803l-4.688-3.514a.502.502 0 0 0-.803.402v7.026c0 .412.472.653.803.402z"></path>
-                        <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-1c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11z"></path>
-                      </svg>
+                    <div className="mb-1"> 
+                      <Videoicon/>
                     </div>
                     <div>
                       <h1>{item.original_title}</h1>

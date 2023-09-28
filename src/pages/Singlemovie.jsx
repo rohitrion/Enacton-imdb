@@ -62,9 +62,8 @@ const Singlemovie = () => {
       <div className="flex flex-col md:flex-row  bg-gray-600 shadow-lg text-white rounded-lg overflow-hidden">
         <div className="md:w-1/3">
           <img
-            src={`https://image.tmdb.org/t/p/original${
-              data ? data.poster_path : ""
-            }`}
+            src={`https://image.tmdb.org/t/p/original${data ? data.poster_path : ""
+              }`}
             alt={data ? data.original_title : ""}
           />
         </div>
@@ -79,15 +78,20 @@ const Singlemovie = () => {
             Release-date : {data.release_date}
           </h2>
           <div className="flex gap-3 pt-3">
-            {data?.genres?.map((item) => (
-              <h5
-                key={item.id}
-                className="text-2xl font-semibold mr-2 rounded border border-[blue] p-2"
-              >
-                {item.name}
-              </h5>
-            ))}
+            {data && data.genres && data.genres.length > 0 ? (
+              data.genres.map((item) => (
+                <h5
+                  key={item.id}
+                  className="text-2xl font-semibold mr-2 rounded border border-[blue] p-2"
+                >
+                  {item.name}
+                </h5>
+              ))
+            ) : (
+              <p>No genres available.</p>
+            )}
           </div>
+
         </div>
       </div>
 

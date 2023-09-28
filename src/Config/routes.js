@@ -9,7 +9,7 @@ import Footer from "../Component/Footer";
 import Movielist from "../Component/Movielist";
 import Toprated from "../Component/Toprated";
 import Carousal from "../Component/Carousal";
-
+import React from "react";
 const routes = [
   {
     path: "/",

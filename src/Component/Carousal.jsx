@@ -37,7 +37,7 @@ const Carousal = () => {
               showStatus={false}
               showIndicators={false}
             >
-              {movies?.map((item) => {
+              {movies.map((item) => {
                 return (
                   <div key={item.id} className="relative">
                     <div className=" key={item.id}  ">

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
-import { ThreeDots } from 'react-loader-spinner'
-
+import { ThreeDots } from "react-loader-spinner";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -13,7 +13,11 @@ function Login() {
 
   const [error, setError] = useState("");
   const [submitDisable, setSubmitDisable] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!values.email || !values.pass) {
@@ -81,18 +85,31 @@ function Login() {
               <label htmlFor="password" className="sr-only">
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                onChange={(e) =>
-                  setValues((prev) => ({ ...prev, pass: e.target.value }))
-                }
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Password"
+                  onChange={(e) =>
+                    setValues((prev) => ({ ...prev, pass: e.target.value }))
+                  }
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onClick={togglePasswordVisibility}
+                >
+                  {showPassword ? (
+                    <FiEyeOff className="h-5 w-5 text-gray-500" />
+                  ) : (
+                    <FiEye className="h-5 w-5 text-gray-500" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -136,5 +153,3 @@ function Login() {
 }
 
 export default Login;
-
-

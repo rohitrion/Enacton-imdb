@@ -5,16 +5,25 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { Moviedata, Name, login } from "../recoil";
 import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
-import { Dropdown, Imdb, Loginicon, Menubar, Serachicon, Watchlist, Whitedropdown } from "./Utils/icons";
+import { ThreeDots } from "react-loader-spinner";
+import {
+  Dropdown,
+  Imdb,
+  Loginicon,
+  Menubar,
+  Serachicon,
+  Watchlist,
+  Whitedropdown,
+} from "./Utils/icons";
 
 const Navbar = () => {
   const [num, setnum] = useRecoilState(Moviedata);
   const [movies, setMovies] = useState([]);
   const [input, setInput] = useState("");
-  const name = useRecoilValue(Name)
-  const [log, setlogin] = useRecoilState(login)
+  const name = useRecoilValue(Name);
+  const [log, setlogin] = useRecoilState(login);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   function hanldeclick(id) {
     navigate(`/movie/${id}`);
     setInput("");
@@ -25,7 +34,7 @@ const Navbar = () => {
     signOut(auth)
       .then(() => {
         console.log("Signed out successfully");
-        setlogin(false)
+        setlogin(false);
       })
       .catch((error) => {
         console.log(error);
@@ -39,26 +48,34 @@ const Navbar = () => {
       );
       const data = await response.json();
       setMovies(data.results);
+      setLoading(false); // Hid
     } catch (error) {
       console.error("Error fetching data:", error);
+      setLoading(false); // Hid
     }
   }
 
   function hanldeinput(e) {
     const inputValue = e.target.value;
     setInput(inputValue);
+
+    setMovies([]);
   }
-  console.log(log, 'navbar')
   useEffect(() => {
     localStorage.setItem("num", JSON.stringify(num));
   }, [num]);
 
   useEffect(() => {
-    if (input) {
-      fetchMovies(input);
-    } else {
-      setMovies([]);
-    }
+    const timeoutId = setTimeout(() => {
+      if (input.trim() !== "") {
+        setLoading(true);
+        fetchMovies(input);
+      }
+    }, 1500); //
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [input]);
 
   return (
@@ -67,7 +84,6 @@ const Navbar = () => {
         <div className="flex items-center">
           <Link to="/">
             <div className="max-w-xl ">
-
               <Imdb />
             </div>
           </Link>
@@ -89,13 +105,41 @@ const Navbar = () => {
                 onChange={(e) => hanldeinput(e)}
               />
             </div>
-            {movies.length === 0 && input && (
+            {/*
+
+            {movies.length === 0 && input ? (
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
                 <div className="text-white font-semibold p-2">
-                  No movies found for "{input}".
+                  see the results for "{input}".
                 </div>
               </div>
-            )}
+            ) : null}
+
+           */}
+
+            {loading ? (
+              <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
+                <div className="text-white font-semibold p-2 ml-2">
+                  {" "}
+                  <ThreeDots
+                    height="20"
+                    width="40"
+                    radius="9"
+                    color="white"
+                    ariaLabel="three-dots-loading"
+                    wrapperStyle={{}}
+                    wrapperClassName=""
+                    visible={true}
+                  />
+                </div>
+              </div>
+            ) : movies.length === 0 && input ? (
+              <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
+                <div className="text-white font-semibold p-2">
+                  see results for "{input}".
+                </div>
+              </div>
+            ) : null}
 
             {movies.length > 0 && (
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">

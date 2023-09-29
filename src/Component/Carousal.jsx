@@ -1,29 +1,17 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import Card from "./Card";
 import { Videoicon } from "./Utils/icons";
-
+import Customhook from "./Utils/Customhook";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 const Carousal = () => {
-  const [movies, setMovies] = useState([]);
-
-  async function fetchMovies() {
-    try {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US"
-      );
-      const data = await response.json();
-      setMovies(data.results);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
-
-  useEffect(() => {
-    fetchMovies();
-  }, []);
+  const {
+    data: movies,
+    loading
+  } = Customhook(
+    "https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US"
+  );
 
   return (
     <>
@@ -38,13 +26,17 @@ const Carousal = () => {
               showStatus={false}
               showIndicators={false}
             >
-              {movies?.map((item) => {
-                return (
+              {loading ? (
+                <SkeletonTheme baseColor="#202020" highlightColor="#fff">
+                  <Skeleton height={400} width={370} duration={2} />
+                </SkeletonTheme>
+              ) : (
+                movies?.results.map((item) => (
                   <div key={item.id} className="relative">
                     <div className=" key={item.id}  ">
                       <div className="h-[550px]  w-[100%] ">
                         <img
-                          className="h-full  w-[100%] block object-cover "
+                          className="h-full  w-[100%] block object-cover"
                           src={`https://image.tmdb.org/t/p/original/${
                             item && item.backdrop_path
                           }`}
@@ -54,24 +46,31 @@ const Carousal = () => {
                       <div className="flex absolute left-[20px] top-[250px]">
                         <Card movie={item} />
                         <div className="mt-[120px]">
-                          <span>Rating:⭐{item ? item.vote_average : ""}</span>
+                          <span>Rating:⭐{item?.vote_average }</span>
                           <p>
-                            {item ? item.overview.slice(0, 118) + "..." : ""}
+                            {item?.overview.slice(0, 118) + "..."}
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                ))
+              )}
             </Carousel>
-          </div> 
+          </div>
           <div className="">
-            <div class="font-bold text-[25px] my-4 text-[yellow]">Up Next</div>
+            <div className="font-bold text-[25px] my-4 text-[yellow]">
+              Up Next
+            </div>
 
-            {movies.slice(9, 12).map((item) => {
-              return (
-                <div className="flex gap-[20px]">
+            {loading ? (
+              <SkeletonTheme baseColor="#202020" highlightColor="#fff">
+                <Skeleton height={300} width={170} duration={2} />
+              </SkeletonTheme>
+            ) : (
+              // Render up next data
+              movies?.results.slice(9, 12).map((item) => (
+                <div className="flex gap-[20px]" key={item.id}>
                   <div className="h-[150px]  w-[100px]  ">
                     <img
                       className="h-[100px] object-cover"
@@ -83,18 +82,17 @@ const Carousal = () => {
                   </div>
 
                   <div className="h-[30px]">
-                    <div className="mb-1"> 
-                      <Videoicon/>
+                    <div className="mb-1">
+                      <Videoicon />
                     </div>
                     <div>
                       <h1>{item.original_title}</h1>
-
                       <p>{item.overview.slice(0, 90)}+""</p>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              ))
+            )}
             <h1 className="font-bold text-[20px] my-4 text-[yellow]">
               Browse Trailers ▶️
             </h1>

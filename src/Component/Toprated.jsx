@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "./Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Customhook from "./Utils/Customhook";
 import Loading from "./Utils/Loading";
+import { useRecoilState } from "recoil";
+import { globaldata } from "../recoil";
 
 const Toprated = () => {
+
+ const [all,setall]=useRecoilState(globaldata)
+
   const {
     data: movies,
     loading,
     error,
   } = Customhook(
-    "https://api.themoviedb.org/3/movie/upcoming?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US"
+    "https://api.themoviedb.org/3/movie/upcoming?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US", all
   );
 
+  useEffect(() => {
+  setall(movies)
+  }, [movies])
+  
  
   const settings = {
     dots: true,
@@ -40,7 +49,7 @@ const Toprated = () => {
           <Loading />
         ) : (
           <Slider {...settings}>
-            {movies.results.map((item) => (
+            {all?.results?.map((item) => (
               <div key={item.id} className="flex gap-[20px] overflow-hidden">
                 <Card movie={item} />
               </div>

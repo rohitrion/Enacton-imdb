@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Customhook = (url) => {
+const Customhook = (url, _data) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -9,6 +9,7 @@ const Customhook = (url) => {
   useEffect(() => {
     async function fetchData(){
       try {
+        if(_data?.results?.length) return
         const response = await axios(url);
         setData(response.data);
       } catch (err) {
@@ -17,7 +18,6 @@ const Customhook = (url) => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 

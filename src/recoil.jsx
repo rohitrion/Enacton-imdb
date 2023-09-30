@@ -14,3 +14,12 @@ export const Name=atom({
   key:"Name",
   default:""
 })
+
+
+
+
+
+export const globaldata=atom({
+  key:"globaldata",
+  default:[]
+})

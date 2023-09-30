@@ -3,6 +3,7 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Moviedata } from "../recoil";
 import Select from "react-select";
+import { Navigate } from "react-router-dom";
 
 const options = [
   { value: "IMDb Rating", label: "IMDb Rating" },
@@ -70,6 +71,8 @@ const Watchlist = () => {
 
     sortAndFilterData();
   }, [selectedOption, All]);
+ 
+
 
   return (
     <div className="h-[600px] overflow-x-hidden overflow-y-scroll bg-white">

@@ -10,7 +10,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import { PlusIcon } from "./Utils/icons";
 
 const Card = ({ movie }) => {
-  const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(true);
   const [cart, setCart] = useRecoilState(Moviedata);
   const [toggle, settoggle] = useState(true);
   const log = useRecoilValue(login);
@@ -35,6 +35,7 @@ const Card = ({ movie }) => {
   }
 
   useEffect(() => {
+<<<<<<< HEAD
     setTimeout(() => {
       setLoading(false);
     }, 800);
@@ -45,6 +46,10 @@ const Card = ({ movie }) => {
       if (cart.some((el) => el.id == movie.id)) {
         settoggle(false);
       }
+=======
+    if (cart.some((el) => el.id == movie.id)) {
+      settoggle(false);
+>>>>>>> a8d5b958579eed11aaecd47e9c1a64a1463ccf1e
     }
 
   }, []);
@@ -55,11 +60,12 @@ const Card = ({ movie }) => {
         {loading ? (
           <div>
             <SkeletonTheme baseColor="#202020" highlightColor="#fff">
-              <p>
+            <p>
                 <Skeleton height={300} width={150} duration={2} />
               </p>
             </SkeletonTheme>
           </div>
+<<<<<<< HEAD
         ) : (
           <div className="flex flex-col gap-4 justify-center w-56 rounded-sm">
             <div className="">
@@ -69,12 +75,14 @@ const Card = ({ movie }) => {
                 alt={movie ? movie.original_title : ""}
               />
             </div>
+=======
+>>>>>>> a8d5b958579eed11aaecd47e9c1a64a1463ccf1e
 
-            <div className="text-white">
-              <h1>{movie ? movie.original_title : ""}</h1>
-              <span>⭐{movie ? movie.vote_average : ""}</span>
-              <p> {movie ? movie.overview.slice(0, 118) + "..." : ""}</p>
-            </div>
+          <div className="text-white">
+            <h1>{movie ? movie.original_title : ""}</h1>
+            <span>⭐{movie ? movie.vote_average : ""}</span>
+            <p> {movie ? movie.overview.slice(0, 118) + "..." : ""}</p>
+</div>
           </div>
         )}
       </Link>
@@ -83,12 +91,16 @@ const Card = ({ movie }) => {
         className="absolute top-2 left-2  cursor-pointer  "
         onClick={hanldeadd}
       >
+<<<<<<< HEAD
         {toggle ? (
 
           <PlusIcon />
         ) : (
           <span className="text-[30px]">✅</span>
         )}
+=======
+        {toggle ? <PlusIcon /> : <span className="text-[30px]">✅</span>}
+>>>>>>> a8d5b958579eed11aaecd47e9c1a64a1463ccf1e
       </div>
     </div>
   );

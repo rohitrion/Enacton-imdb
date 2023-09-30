@@ -41,9 +41,12 @@ const Card = ({ movie }) => {
   }, []);
 
   useEffect(() => {
-    if (cart.some((el) => el.id == movie.id)) {
-      settoggle(false);
+    if (log) {
+      if (cart.some((el) => el.id == movie.id)) {
+        settoggle(false);
+      }
     }
+
   }, []);
 
   return (
@@ -61,9 +64,8 @@ const Card = ({ movie }) => {
           <div className="flex flex-col gap-4 justify-center w-56 rounded-sm">
             <div className="">
               <img
-                src={`https://image.tmdb.org/t/p/original${
-                  movie ? movie.poster_path : ""
-                }`}
+                src={`https://image.tmdb.org/t/p/original${movie ? movie.poster_path : ""
+                  }`}
                 alt={movie ? movie.original_title : ""}
               />
             </div>
@@ -82,8 +84,8 @@ const Card = ({ movie }) => {
         onClick={hanldeadd}
       >
         {toggle ? (
-       
-         <PlusIcon/>
+
+          <PlusIcon />
         ) : (
           <span className="text-[30px]">✅</span>
         )}

@@ -50,6 +50,7 @@ function Signup() {
                 className="border border-gray-300 p-2 w-full rounded-md"
                 placeholder="Your Name"
                 type="text"
+                required
                 value={values.name}
                 onChange={(e) => {
                   setValues({ ...values, name: e.target.value });
@@ -61,6 +62,7 @@ function Signup() {
                 className="border border-gray-300 p-2 w-full rounded-md"
                 placeholder="Your Email"
                 type="email"
+                required
                 value={values.email}
                 onChange={(e) => {
                   setValues({ ...values, email: e.target.value });

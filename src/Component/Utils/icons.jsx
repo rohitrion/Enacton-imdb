@@ -137,17 +137,17 @@ export const Loginicon = () => {
   return (
 
     <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    class="ipc-icon ipc-icon--account-circle ipc-btn__icon ipc-btn__icon--pre"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    role="presentation"
-  >
-    <path fill="none" d="M0 0h24v24H0V0z"></path>
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 01-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 01-6 3.22z"></path>
-  </svg>
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      class="ipc-icon ipc-icon--account-circle ipc-btn__icon ipc-btn__icon--pre"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      role="presentation"
+    >
+      <path fill="none" d="M0 0h24v24H0V0z"></path>
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 01-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 01-6 3.22z"></path>
+    </svg>
 
   );
 };
@@ -157,16 +157,16 @@ export const Whitedropdown = () => {
   return (
 
     <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    class="ipc-icon ipc-icon--arrow-drop-down ipc-btn__icon ipc-btn__icon--post navbar__flyout__text-button-post-icon"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    role="presentation"
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      class="ipc-icon ipc-icon--arrow-drop-down ipc-btn__icon ipc-btn__icon--post navbar__flyout__text-button-post-icon"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      role="presentation"
     >
-    <path fill="none" d="M0 0h24v24H0V0z"></path>
-    <path d="M8.71 11.71l2.59 2.59c.39.39 1.02.39 1.41 0l2.59-2.59c.63-.63.18-1.71-.71-1.71H9.41c-.89 0-1.33 1.08-.7 1.71z"></path>
+      <path fill="none" d="M0 0h24v24H0V0z"></path>
+      <path d="M8.71 11.71l2.59 2.59c.39.39 1.02.39 1.41 0l2.59-2.59c.63-.63.18-1.71-.71-1.71H9.41c-.89 0-1.33 1.08-.7 1.71z"></path>
     </svg>
 
   );
@@ -179,18 +179,18 @@ export const Videoicon = () => {
   return (
 
     <svg
-    width="32"
-    height="32"
-    xmlns="http://www.w3.org/2000/svg"
-    class="group-hover:cursor-pointer group-hover:text-yellow-default ipc-icon ipc-icon--play-circle-outline-large-inline ipc-icon--inline sc-d4cb23a2-14 ejjmJF editorial-play-icon'
+      width="32"
+      height="32"
+      xmlns="http://www.w3.org/2000/svg"
+      class="group-hover:cursor-pointer group-hover:text-yellow-default ipc-icon ipc-icon--play-circle-outline-large-inline ipc-icon--inline sc-d4cb23a2-14 ejjmJF editorial-play-icon'
 id='iconContext-play-circle-outline-large-inline"
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    role="presentation"
-  >
-    <path d="M10.803 15.932l4.688-3.513a.498.498 0 0 0 0-.803l-4.688-3.514a.502.502 0 0 0-.803.402v7.026c0 .412.472.653.803.402z"></path>
-    <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-1c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11z"></path>
-  </svg>
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      role="presentation"
+    >
+      <path d="M10.803 15.932l4.688-3.513a.498.498 0 0 0 0-.803l-4.688-3.514a.502.502 0 0 0-.803.402v7.026c0 .412.472.653.803.402z"></path>
+      <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-1c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11z"></path>
+    </svg>
 
   );
 };

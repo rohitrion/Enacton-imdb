@@ -1,10 +1,12 @@
+
+
 import React from "react";
 
 // NextButton component
 export const NextButton = ({ onClick }) => {
   return (
     <button
-      className="slick-arrow  slick-next text-white bg-fuchsia-100 "
+      className="next-button text-white bg-blue-500 hover:bg-blue-600 rounded-md px-2 py-1 cursor-pointer "
       onClick={onClick}
     >
       Next
@@ -13,11 +15,10 @@ export const NextButton = ({ onClick }) => {
 };
 
 // PreviousButton component
-
 export const PreviousButton = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="slick-arrow slick-prev text-white bg-fuchsia-100 "
+    className="prev-button text-white bg-blue-500 hover:bg-blue-600 rounded-md px-2 py-1 mb-4 cursor-pointer"
   >
     Previous
   </button>

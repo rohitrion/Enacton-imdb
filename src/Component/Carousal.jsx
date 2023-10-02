@@ -5,20 +5,50 @@ import Card from "./Card";
 import { Videoicon } from "./Utils/icons";
 import Customhook from "./Utils/Customhook";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { useRef } from "react";
+import { NextButton, PreviousButton } from "./Utils/Buttons";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { globaldata } from "../recoil";
 const Carousal = () => {
+
+  const [all,setall]=useRecoilState(globaldata)
+ 
+
   const {
     data: movies,
     loading
   } = Customhook(
-    "https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US"
+    "https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US",all
   );
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideToPrev = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  const slideToNext = () => {
+    if (currentSlide < movies.results.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };;
+
+  useEffect(() => {
+    if(movies) {
+      setall(movies)
+    }
+  }, [movies])
+  
 
   return (
     <>
       <div className="bg-[#000000] text-white py-8 " id="carousal-section">
         <div className="container  grid grid-cols-2  gap-[40px]">
           <div className="w-full h-full">
-            <Carousel
+          <PreviousButton onClick={slideToPrev} />
+            <Carousel selectedItem={currentSlide}
+              onChange={(index) => setCurrentSlide(index)}
               showThumbs={false}
               autoPlay={true}
               transitionTime={0}
@@ -31,7 +61,7 @@ const Carousal = () => {
                   <Skeleton height={400} width={370} duration={2} />
                 </SkeletonTheme>
               ) : (
-                movies?.results.map((item) => (
+                all?.results?.map((item) => (
                   <div key={item.id} className="relative">
                     <div className=" key={item.id}  ">
                       <div className="h-[550px]  w-[100%] ">
@@ -57,6 +87,7 @@ const Carousal = () => {
                 ))
               )}
             </Carousel>
+            <NextButton onClick={slideToNext} />
           </div>
           <div className="">
             <div className="font-bold text-[25px] my-4 text-[yellow]">
@@ -69,7 +100,7 @@ const Carousal = () => {
               </SkeletonTheme>
             ) : (
               // Render up next data
-              movies?.results.slice(9, 12).map((item) => (
+              all?.results?.slice(9, 12).map((item) => (
                 <div className="flex gap-[20px]" key={item.id}>
                   <div className="h-[150px]  w-[100px]  ">
                     <img

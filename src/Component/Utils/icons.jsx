@@ -122,12 +122,29 @@ export const Loginicon = () => {
       <path fill="none" d="M0 0h24v24H0V0z"></path>
       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 01-6-3.22c.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08a7.2 7.2 0 01-6 3.22z"></path>
     </svg>
-<<<<<<< HEAD
-
-=======
->>>>>>> a8d5b958579eed11aaecd47e9c1a64a1463ccf1e
   );
 };
+
+
+export const Logindesign = () => {
+  return (
+    <svg
+    class="w-16 h-16 mx-auto text-indigo-600"
+    fill="none"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    strokeWidth="2"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+    <path d="M12 14l9-5-9-5-9 5 9 5z" strokeLinejoin="round"></path>
+  </svg>
+  );
+};
+
+
+
 
 export const Whitedropdown = () => {
   return (
@@ -161,10 +178,6 @@ id='iconContext-play-circle-outline-large-inline"
       <path d="M10.803 15.932l4.688-3.513a.498.498 0 0 0 0-.803l-4.688-3.514a.502.502 0 0 0-.803.402v7.026c0 .412.472.653.803.402z"></path>
       <path d="M12 24C5.373 24 0 18.627 0 12S5.373 0 12 0s12 5.373 12 12-5.373 12-12 12zm0-1c6.075 0 11-4.925 11-11S18.075 1 12 1 1 5.925 1 12s4.925 11 11 11z"></path>
     </svg>
-<<<<<<< HEAD
-
-=======
->>>>>>> a8d5b958579eed11aaecd47e9c1a64a1463ccf1e
   );
 };
 

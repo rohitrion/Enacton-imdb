@@ -6,6 +6,7 @@ import { Moviedata, Name, login } from "../recoil";
 import { signOut } from "firebase/auth";
 import { auth } from "../Firebase/firebase";
 import { ThreeDots } from "react-loader-spinner";
+import Modal from "react-modal";
 import {
   Dropdown,
   Imdb,
@@ -24,13 +25,29 @@ const Navbar = () => {
   const [log, setlogin] = useRecoilState(login);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+
+  const [showModal, setShowModal] = useState(false);
+
+
+  const handleLogout = () => {
+    setShowModal(true);
+  };
+
+
   function hanldeclick(id) {
     navigate(`/movie/${id}`);
     setInput("");
     setMovies([]);
   }
 
-  const handleLogout = () => {
+
+
+  const cancelLogout = () => {
+
+    setShowModal(false);
+  };
+  const confirmLogout = () => {
     signOut(auth)
       .then(() => {
         console.log("Signed out successfully");
@@ -39,6 +56,8 @@ const Navbar = () => {
       .catch((error) => {
         console.log(error);
       });
+    setShowModal(false);
+    navigate('/login')
   };
 
   async function fetchMovies(query) {
@@ -58,7 +77,6 @@ const Navbar = () => {
   function hanldeinput(e) {
     const inputValue = e.target.value;
     setInput(inputValue);
-
     setMovies([]);
   }
   useEffect(() => {
@@ -105,18 +123,7 @@ const Navbar = () => {
                 onChange={(e) => hanldeinput(e)}
               />
             </div>
-            {/*
-
-            {movies.length === 0 && input ? (
-              <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
-                <div className="text-white font-semibold p-2">
-                  see the results for "{input}".
-                </div>
-              </div>
-            ) : null}
-
-           */}
-
+      
             {loading ? (
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
                 <div className="text-white font-semibold p-2 ml-2">
@@ -232,6 +239,31 @@ const Navbar = () => {
             <span>EN</span>
 
             <Dropdown />
+            <Modal
+              isOpen={showModal}
+              onRequestClose={cancelLogout}
+              contentLabel="Logout Confirmation"
+              className="bg-[#121212] text-white rounded-lg p-4 w-72 mx-auto mt-20"
+              overlayClassName="fixed inset-0 flex items-center justify-center z-50"
+            >
+              <h2 className="text-2xl font-bold mb-4">Confirm Logout</h2>
+              <p className="text-lg mb-6">Are you sure you want to sign out?</p>
+              <div className="flex justify-center space-x-4">
+                <button
+                  onClick={confirmLogout}
+                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                >
+                  OK
+                </button>
+                <button
+                  onClick={cancelLogout}
+                  className="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700"
+                >
+                  Cancel
+                </button>
+              </div>
+            </Modal>
+
           </div>
         </div>
       </div>

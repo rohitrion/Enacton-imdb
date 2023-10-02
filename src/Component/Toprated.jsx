@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Card from "./Card";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -7,11 +7,12 @@ import Customhook from "./Utils/Customhook";
 import Loading from "./Utils/Loading";
 import { useRecoilState } from "recoil";
 import { globaldata } from "../recoil";
+import { NextButton, PreviousButton } from "./Utils/Buttons";
 
 const Toprated = () => {
 
  const [all,setall]=useRecoilState(globaldata)
-
+ const sliderRef = useRef(null);
   const {
     data: movies,
     loading,
@@ -21,10 +22,23 @@ const Toprated = () => {
   );
 
   useEffect(() => {
-  setall(movies)
+    console.log(movies, "movies")
+    if(movies) {
+      setall(movies)
+    }
   }, [movies])
   
- 
+  const slideToPrev = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
+  };
+
+  const slideToNext = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext();
+    }
+  };
   const settings = {
     dots: true,
     infinite: true,
@@ -42,19 +56,23 @@ const Toprated = () => {
           <h1 className="text-3xl pb-2 text-yellow-400 font-bold">
             Fan Favourites
           </h1>
-          <h2 className="text-2xl pb-1 text-white font-bold">Upcoming</h2>
+          <h2 className="text-2xl pb-1 text-white font-bold">Popular</h2>
           <h3 className="text-gray-500 pb-4">Movies for you</h3>
         </div>
         {loading ? (
           <Loading />
         ) : (
-          <Slider {...settings}>
+          <div>
+          <PreviousButton onClick={slideToPrev} />,
+          <Slider {...settings}  ref={sliderRef} >
             {all?.results?.map((item) => (
               <div key={item.id} className="flex gap-[20px] overflow-hidden">
                 <Card movie={item} />
               </div>
             ))}
           </Slider>
+          <NextButton onClick={slideToNext} />,
+          </div>
         )}
       </div>
     </div>

@@ -24,7 +24,7 @@ const Singlemovie = () => {
       const itemExists = cart.some((item) => item.id === data.id);
 
       if (!itemExists) {
-        // If the item is not in the cart, add it
+        // If the item is not in the cart, add it 
         setCart([...cart, data]);
         settoggle(false);
       } else {
@@ -35,11 +35,14 @@ const Singlemovie = () => {
     }
   }
 
+
   useEffect(() => {
-    if (cart.some((el) => el.id === id)) {
+    if (cart.some((el) => el.id == id)) {
       settoggle(false);
     }
-  }, [cart, id]);
+  }, []);
+
+
 
   return (
     <div className="container mx-auto p-4 relative">

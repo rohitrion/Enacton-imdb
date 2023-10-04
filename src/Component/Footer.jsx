@@ -7,15 +7,15 @@ function Footer() {
       <div className="container mx-auto text-center py-2">
         <div>
           {Footerconfig.map((link, index) => (
-            <span key={index}>
+            <span key={index} >
               <a href={link.href}>{link.text}</a>
               {index < Footerconfig.length - 1 && (
-                <span className="mx-2">|</span>
+                <span className="mx-3">|</span>
               )}
             </span>
           ))}
         </div>
-        <div className="mb-4">
+        <div className="mt-4">
           <p>&copy; 1990-2023 by IMDb.com, Inc.</p>
         </div>
       </div>

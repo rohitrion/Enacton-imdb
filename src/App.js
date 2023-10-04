@@ -27,12 +27,12 @@ function App() {
         setLog(true);
 
         localStorage.setItem("isLoggedIn", "true");
-        console.log("User logged in. Local Storage - isLoggedIn: true");
+        console.log("User logged  isLoggedIn: true");
       } else {
         setname("");
 
         localStorage.removeItem("isLoggedIn");
-        console.log("User logged out. Local Storage - isLoggedIn: removed");
+        console.log("User logged out isLoggedIn: removed");
       }
       setIsLoading(false);
     });

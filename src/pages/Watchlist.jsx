@@ -32,21 +32,27 @@ const Watchlist = () => {
     localStorage.setItem(watchlistKey, JSON.stringify(updatedWatchlist));
   }
 
-
-
   useEffect(() => {
- 
     const storedWatchlist = localStorage.getItem(watchlistKey);
     if (storedWatchlist) {
       const parsedWatchlist = JSON.parse(storedWatchlist);
       setdata(parsedWatchlist);
     } else {
-   
       setdata([]);
     }
     setLoading(false);
   }, [watchlistKey, setdata]);
 
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const sortParam = queryParams.get("sort");
+
+    const selectedOption = options.find((option) => option.value === sortParam);
+
+    if (selectedOption) {
+      setSelectedOption(selectedOption);
+    }
+  }, []);
 
   useEffect(() => {
     const sortAndFilterData = () => {
@@ -79,6 +85,12 @@ const Watchlist = () => {
             break;
         }
       }
+
+      const queryParams = new URLSearchParams();
+      if (selectedOption) {
+        queryParams.set("sort", selectedOption.value);
+      }
+      window.history.replaceState(null, null, `?${queryParams.toString()}`);
 
       setSortedAndFilteredData(newData);
     };
@@ -162,33 +174,33 @@ const Watchlist = () => {
                     className="flex items-center mb-4 bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg"
                   >
                     <div className="flex-shrink-0 mr-4">
-                      <img
-                        src={`https://image.tmdb.org/t/p/original${
-                          movie ? movie.poster_path : ""
-                        }`}
-                        alt={movie ? movie.original_title : ""}
-                        className="w-20 h-auto"
-                      />
+                      {movie && movie.poster_path && (
+                        <img
+                          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                          alt={movie.original_title}
+                          className="w-20 h-auto"
+                        />
+                      )}
                     </div>
                     <div className="text-black">
                       <div className="flex justify-between">
                         <h1 className="text-lg font-semibold">
-                          {movie ? movie.original_title : ""}
+                          {movie && movie.original_title}
                         </h1>
 
                         <span
-                          className=" cursor-pointer "
-                          onClick={() => hanldeclick(movie.id)}
+                          className="cursor-pointer"
+                          onClick={() => hanldeclick(movie?.id)}
                         >
                           ❌
                         </span>
                       </div>
                       <span className="text-yellow-500">
-                        ⭐ {movie ? movie.vote_average : ""}
+                        ⭐ {movie && movie.vote_average}
                       </span>
 
                       <p className="text-gray-600 mt-2">
-                        {movie ? movie.overview : ""}
+                        {movie && movie.overview}
                       </p>
                     </div>
                   </div>

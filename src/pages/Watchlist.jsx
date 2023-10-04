@@ -42,9 +42,9 @@ const Watchlist = () => {
   }, [watchlistKey, setdata]);
 
   useEffect(() => {
-    setTimeout(() => {
+
       setLoading(false);
-    }, 500);
+   
   }, []);
 
   useEffect(() => {

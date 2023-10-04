@@ -32,20 +32,21 @@ const Watchlist = () => {
     localStorage.setItem(watchlistKey, JSON.stringify(updatedWatchlist));
   }
 
+
+
   useEffect(() => {
+ 
     const storedWatchlist = localStorage.getItem(watchlistKey);
     if (storedWatchlist) {
       const parsedWatchlist = JSON.parse(storedWatchlist);
       setdata(parsedWatchlist);
+    } else {
+   
+      setdata([]);
     }
     setLoading(false);
   }, [watchlistKey, setdata]);
 
-  useEffect(() => {
-
-      setLoading(false);
-   
-  }, []);
 
   useEffect(() => {
     const sortAndFilterData = () => {

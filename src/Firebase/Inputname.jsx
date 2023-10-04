@@ -1,6 +1,6 @@
 import React from "react";
 
-const Inputname = ({ value, onChange }) => {
+const Inputname = ({ value, onChange ,  }) => {
   return (
     <div>
       <label htmlFor="name-address" className="sr-only">

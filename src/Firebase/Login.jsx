@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -20,14 +19,30 @@ function Login() {
     setShowPassword(!showPassword);
   };
 
+  const handleEmailFocus = () => {
+    setError("");
+  };
+
+  const handlePasswordFocus = () => {
+    setError("");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setError("");
+
+    if (!email.trim() && !pass.trim()) {
+      return;
+    }
+
     if (!email || !pass) {
       setError("Please Fill All Fields");
       return;
     }
-    setError("");
+
     setSubmitDisable(true);
+
     signInWithEmailAndPassword(auth, email, pass)
       .then((res) => {
         setSubmitDisable(false);
@@ -36,7 +51,7 @@ function Login() {
       })
       .catch((err) => {
         setSubmitDisable(false);
-        setError(err.message);
+        setError("Invalid UserName or Password");
       });
   };
 
@@ -44,7 +59,7 @@ function Login() {
     <div className="flex items-center justify-center h-[600px] bg-gray-100">
       <div className="w-full max-w-md">
         <div className="text-center">
-           <Logindesign/>
+          <Logindesign />
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Log in</h2>
           <p className="mt-2 text-sm text-gray-600">
             Or{" "}
@@ -55,19 +70,24 @@ function Login() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
-            <EmailInput value={email} onChange={(e) => setEmail(e.target.value)} />
+            <EmailInput
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={handleEmailFocus}
+            />
             <br />
             <PasswordInput
               value={pass}
               onChange={(e) => setPass(e.target.value)}
               showPassword={showPassword}
               togglePasswordVisibility={togglePasswordVisibility}
+              onFocus={handlePasswordFocus}
             />
           </div>
+          <div className="text-sm text-center text-[30px] text-red-600">
+            {error}
+          </div>
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-red-600">{error.slice(8)}</p>
-            </div>
             <div className="text-sm">
               <Link to="/reset" className="font-medium text-indigo-600">
                 Forgot password?

@@ -1,7 +1,7 @@
 
 import React from "react";
 
-function EmailInput({ value, onChange }) {
+function EmailInput({ value, onChange ,onFocus}) {
   return (
     <div>
       <label htmlFor="email-address" className="sr-only">
@@ -17,6 +17,7 @@ function EmailInput({ value, onChange }) {
         placeholder="Email address"
         value={value}
         onChange={onChange}
+        onFocus={onFocus}
       />
     </div>
   );

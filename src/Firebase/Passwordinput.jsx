@@ -1,7 +1,7 @@
 
 import React from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-function PasswordInput({ value, onChange, showPassword, togglePasswordVisibility }) {
+function PasswordInput({ value, onChange, showPassword, togglePasswordVisibility,onFocus }) {
   return (
     <div className="relative">
       <input
@@ -14,6 +14,7 @@ function PasswordInput({ value, onChange, showPassword, togglePasswordVisibility
         placeholder="your Password"
         value={value}
         onChange={onChange}
+        onFocus={onFocus}
       />
       <button
         type="button"

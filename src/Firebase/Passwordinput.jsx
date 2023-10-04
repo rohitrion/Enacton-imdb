@@ -1,4 +1,4 @@
-// PasswordInput.js
+
 import React from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 function PasswordInput({ value, onChange, showPassword, togglePasswordVisibility }) {

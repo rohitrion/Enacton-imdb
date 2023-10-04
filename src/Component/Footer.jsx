@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Footerconfig } from "../Config/Footerconfig";
 
@@ -10,7 +9,9 @@ function Footer() {
           {Footerconfig.map((link, index) => (
             <span key={index}>
               <a href={link.href}>{link.text}</a>
-              {index < Footerconfig.length - 1 && <span className="mx-2">|</span>}
+              {index < Footerconfig.length - 1 && (
+                <span className="mx-2">|</span>
+              )}
             </span>
           ))}
         </div>

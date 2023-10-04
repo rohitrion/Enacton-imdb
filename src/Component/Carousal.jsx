@@ -5,21 +5,16 @@ import Card from "./Card";
 import { Videoicon } from "./Utils/icons";
 import Customhook from "./Utils/Customhook";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import { useRef } from "react";
 import { NextButton, PreviousButton } from "./Utils/Buttons";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { globaldata } from "../recoil";
 const Carousal = () => {
+  const [all, setall] = useRecoilState(globaldata);
 
-  const [all,setall]=useRecoilState(globaldata)
- 
-
-  const {
-    data: movies,
-    loading
-  } = Customhook(
-    "https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US",all
+  const { data: movies, loading } = Customhook(
+    "https://api.themoviedb.org/3/movie/popular?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US",
+    all
   );
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideToPrev = () => {
@@ -32,22 +27,22 @@ const Carousal = () => {
     if (currentSlide < movies.results.length - 1) {
       setCurrentSlide(currentSlide + 1);
     }
-  };;
+  };
 
   useEffect(() => {
-    if(movies) {
-      setall(movies)
+    if (movies) {
+      setall(movies);
     }
-  }, [movies])
-  
+  }, [movies]);
 
   return (
     <>
       <div className="bg-[#000000] text-white py-8 " id="carousal-section">
         <div className="container  grid grid-cols-2  gap-[40px]">
           <div className="w-full h-full">
-          <PreviousButton onClick={slideToPrev} />
-            <Carousel selectedItem={currentSlide}
+            <PreviousButton onClick={slideToPrev} />
+            <Carousel
+              selectedItem={currentSlide}
               onChange={(index) => setCurrentSlide(index)}
               showThumbs={false}
               autoPlay={true}
@@ -76,10 +71,8 @@ const Carousal = () => {
                       <div className="flex absolute left-[20px] top-[250px]">
                         <Card movie={item} />
                         <div className="mt-[120px]">
-                          <span>Rating:⭐{item?.vote_average }</span>
-                          <p>
-                            {item?.overview.slice(0, 118) + "..."}
-                          </p>
+                          <span>Rating:⭐{item?.vote_average}</span>
+                          <p>{item?.overview.slice(0, 118) + "..."}</p>
                         </div>
                       </div>
                     </div>
@@ -99,7 +92,6 @@ const Carousal = () => {
                 <Skeleton height={300} width={170} duration={2} />
               </SkeletonTheme>
             ) : (
-              // Render up next data
               all?.results?.slice(9, 12).map((item) => (
                 <div className="flex gap-[20px]" key={item.id}>
                   <div className="h-[150px]  w-[100px]  ">

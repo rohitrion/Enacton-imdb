@@ -26,14 +26,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-
   const [showModal, setShowModal] = useState(false);
-
 
   const handleLogout = () => {
     setShowModal(true);
   };
-
 
   function hanldeclick(id) {
     navigate(`/movie/${id}`);
@@ -41,10 +38,7 @@ const Navbar = () => {
     setMovies([]);
   }
 
-
-
   const cancelLogout = () => {
-
     setShowModal(false);
   };
   const confirmLogout = () => {
@@ -57,7 +51,7 @@ const Navbar = () => {
         console.log(error);
       });
     setShowModal(false);
-    navigate('/login')
+    navigate("/login");
   };
 
   async function fetchMovies(query) {
@@ -84,12 +78,13 @@ const Navbar = () => {
   }, [num]);
 
   useEffect(() => {
+    //debounce
     const timeoutId = setTimeout(() => {
       if (input.trim() !== "") {
         setLoading(true);
         fetchMovies(input);
       }
-    }, 1500); //
+    }, 1500);
 
     return () => {
       clearTimeout(timeoutId);
@@ -123,7 +118,7 @@ const Navbar = () => {
                 onChange={(e) => hanldeinput(e)}
               />
             </div>
-      
+
             {loading ? (
               <div className="absolute mt-2 p-2 top-[42px] w-[592px] z-10 bg-black text-white shadow-md border  border-gray-300  rounded-sm">
                 <div className="text-white font-semibold p-2 ml-2">
@@ -263,7 +258,6 @@ const Navbar = () => {
                 </button>
               </div>
             </Modal>
-
           </div>
         </div>
       </div>

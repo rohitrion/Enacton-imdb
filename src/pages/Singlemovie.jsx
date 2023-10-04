@@ -24,7 +24,7 @@ const Singlemovie = () => {
       const itemExists = cart.some((item) => item.id === data.id);
 
       if (!itemExists) {
-        // If the item is not in the cart, add it 
+        // If the item is not in the cart, add it
         setCart([...cart, data]);
         settoggle(false);
       } else {
@@ -35,14 +35,14 @@ const Singlemovie = () => {
     }
   }
 
-
   useEffect(() => {
-    if (cart.some((el) => el.id == id)) {
-      settoggle(false);
+    if(log){
+      if (cart.some((el) => el.id == id)) {
+        settoggle(false);
+      }
     }
+  
   }, []);
-
-
 
   return (
     <div className="container mx-auto p-4 relative">
@@ -55,18 +55,16 @@ const Singlemovie = () => {
           <div className="md:w-1/3">
             <img
               src={`https://image.tmdb.org/t/p/original${
-                data ? data.poster_path : ""
+                data && data.poster_path
               }`}
-              alt={data ? data.original_title : ""}
+              alt={data.original_title}
             />
           </div>
           <div className="md:w-2/3 p-4 flex flex-col gap-5">
-            <h2 className="text-2xl font-semibold">
-              {data ? data.original_title : ""}
-            </h2>
-            <span>⭐{data ? data.vote_average : ""}</span>
+            <h2 className="text-2xl font-semibold">{data.original_title}</h2>
+            <span>⭐{data.vote_average}</span>
             <p className="text-white text-sm mb-4">{data.tagline}</p>
-            <p className="text-white"> {data ? data.overview + "..." : ""}</p>
+            <p className="text-white"> {data.overview + "..."}</p>
             <h2 className="font-semibold pt-2">
               Release-date : {data.release_date}
             </h2>

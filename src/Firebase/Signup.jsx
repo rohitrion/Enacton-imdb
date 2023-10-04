@@ -80,7 +80,7 @@ function Signup() {
         setSubmitDisabled(false);
         console.error(err);
         setFirebaseError(err.message); 
-      });
+      }); 
   };
 
   return (

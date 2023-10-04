@@ -1,8 +1,6 @@
-
-
 import React from "react";
 
-// NextButton component
+
 export const NextButton = ({ onClick }) => {
   return (
     <button
@@ -14,7 +12,7 @@ export const NextButton = ({ onClick }) => {
   );
 };
 
-// PreviousButton component
+
 export const PreviousButton = ({ onClick }) => (
   <button
     onClick={onClick}

@@ -6,19 +6,13 @@ import Error from "../pages/Error";
 import Singlemovie from "../pages/Singlemovie";
 import Login from "../Firebase/Login";
 import Footer from "../Component/Footer";
-import Movielist from "../Component/Movielist";
-import Toprated from "../Component/Toprated";
-import Carousal from "../Component/Carousal";
 import React from "react";
 const routes = [
   {
     path: "/",
     element: (
       <Layout isShow={true}>
-        {/* <Carousal />
-        <Movielist />
-        <Toprated /> */}
-        <Home/>
+        <Home />
       </Layout>
     ),
     isLogin: false,

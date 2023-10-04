@@ -23,11 +23,14 @@ const Carousal = () => {
     }
   };
 
+
   const slideToNext = () => {
-    if (currentSlide < movies.results.length - 1) {
+    if (movies && movies.results && currentSlide < movies.results.length - 1) {
       setCurrentSlide(currentSlide + 1);
     }
   };
+
+
 
   useEffect(() => {
     if (movies) {

@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "./firebase";
@@ -10,7 +8,6 @@ import { ThreeDots } from "react-loader-spinner";
 import EmailInput from "./Emailinput";
 import Nameinput from "./Nameinput";
 
-
 function Signup() {
   const navigate = useNavigate();
   const [values, setValues] = useState({
@@ -19,6 +16,17 @@ function Signup() {
     pass: "",
   });
 
+  const handleEmailFocus = () => {
+    setFirebaseError("");
+  };
+
+  const handlePasswordFocus = () => {
+    setFirebaseError("");
+  };
+
+  const handlenameFocus = () => {
+    setFirebaseError("");
+  };
 
   const [errors, setErrors] = useState({
     lengthError: false,
@@ -57,7 +65,11 @@ function Signup() {
     });
 
     return (
-      lengthValid && uppercaseValid && lowercaseValid && numberValid && specialCharValid
+      lengthValid &&
+      uppercaseValid &&
+      lowercaseValid &&
+      numberValid &&
+      specialCharValid
     );
   };
 
@@ -79,8 +91,8 @@ function Signup() {
       .catch((err) => {
         setSubmitDisabled(false);
         console.error(err);
-        setFirebaseError(err.message); 
-      }); 
+        setFirebaseError("invalid Email ");
+      });
   };
 
   return (
@@ -93,22 +105,26 @@ function Signup() {
             </h2>
             <form onSubmit={handleSubmit}>
               <div>
-
-                < Nameinput
-                value={values.name}
+                <Nameinput
+                  value={values.name}
+                  onFocus={handlenameFocus}
                   onChange={(e) => {
                     setValues({ ...values, name: e.target.value });
                   }}
                 />
               </div>
+              <br />
               <div>
-          
-                <EmailInput value={values.email} onChange={(e) => {
-                  setValues({ ...values, email: e.target.value });
-                }} />
-
+                <EmailInput
+                  value={values.email}
+                  onFocus={handleEmailFocus}
+                  onChange={(e) => {
+                    setValues({ ...values, email: e.target.value });
+                  }}
+                />
               </div>
-              <div className="w-full rounded-md mb-4">
+              <br />
+              <div className="w-full rounded-md mb-5">
                 <PasswordInput
                   value={values.pass}
                   onChange={(e) => {
@@ -116,27 +132,42 @@ function Signup() {
                   }}
                   showPassword={showPassword}
                   togglePasswordVisibility={togglePasswordVisibility}
+                  onFocus={handlePasswordFocus}
                 />
               </div>
+
               {errors.lengthError && (
-                <div className="text-red-600">Password must be at least 8 characters long.</div>
+                <div className="text-red-600">
+                  Password must be at least 8 characters long.
+                </div>
               )}
               {errors.uppercaseError && (
-                <div className="text-red-600">Password must contain at least one uppercase letter.</div>
+                <div className="text-red-600">
+                  Password must contain at least one uppercase letter.
+                </div>
               )}
               {errors.lowercaseError && (
-                <div className="text-red-600">Password must contain at least one lowercase letter.</div>
+                <div className="text-red-600">
+                  Password must contain at least one lowercase letter.
+                </div>
               )}
               {errors.numberError && (
-                <div className="text-red-600">Password must contain at least one number.</div>
+                <div className="text-red-600">
+                  Password must contain at least one number.
+                </div>
               )}
               {errors.specialCharError && (
-                <div className="text-red-600">Password must contain at least one special character.</div>
+                <div className="text-red-600">
+                  Password must contain at least one special character.
+                </div>
               )}
-              <div className="text-center mb-1 ">  {firebaseError && (
-                <div className="text-red-600">{firebaseError.slice(8)}</div>
-              )}</div>
-            
+              <div className="text-center mb-2 ">
+                {" "}
+                {firebaseError && (
+                  <div className="text-red-600">{firebaseError}</div>
+                )}
+              </div>
+
               <button
                 className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-md w-full text-center relative"
                 disabled={submitDisabled}

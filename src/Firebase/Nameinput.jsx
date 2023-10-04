@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Nameinput = ({ value, onChange }) => {
+const Nameinput = ({ value, onChange,onFocus }) => {
   return (
     <div>
     <label htmlFor="name-address" className="sr-only">
@@ -16,6 +16,7 @@ const Nameinput = ({ value, onChange }) => {
       placeholder="Name address"
       value={value}
       onChange={onChange}
+      onFocus={onFocus}
     />
   </div>
   )

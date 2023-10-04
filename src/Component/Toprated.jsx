@@ -10,24 +10,24 @@ import { globaldata } from "../recoil";
 import { NextButton, PreviousButton } from "./Utils/Buttons";
 
 const Toprated = () => {
-
- const [all,setall]=useRecoilState(globaldata)
- const sliderRef = useRef(null);
+  const [all, setall] = useRecoilState(globaldata);
+  const sliderRef = useRef(null);
   const {
     data: movies,
     loading,
     error,
   } = Customhook(
-    "https://api.themoviedb.org/3/movie/upcoming?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US", all
+    "https://api.themoviedb.org/3/movie/upcoming?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US",
+    all
   );
 
   useEffect(() => {
-    console.log(movies, "movies")
-    if(movies) {
-      setall(movies)
+    console.log(movies, "movies");
+    if (movies) {
+      setall(movies);
     }
-  }, [movies])
-  
+  }, [movies]);
+
   const slideToPrev = () => {
     if (sliderRef.current) {
       sliderRef.current.slickPrev();
@@ -63,15 +63,15 @@ const Toprated = () => {
           <Loading />
         ) : (
           <div>
-          <PreviousButton onClick={slideToPrev} />,
-          <Slider {...settings}  ref={sliderRef} >
-            {all?.results?.map((item) => (
-              <div key={item.id} className="flex gap-[20px] overflow-hidden">
-                <Card movie={item} />
-              </div>
-            ))}
-          </Slider>
-          <NextButton onClick={slideToNext} />,
+            <PreviousButton onClick={slideToPrev} />,
+            <Slider {...settings} ref={sliderRef}>
+              {all?.results?.map((item) => (
+                <div key={item.id} className="flex gap-[20px] overflow-hidden">
+                  <Card movie={item} />
+                </div>
+              ))}
+            </Slider>
+            <NextButton onClick={slideToNext} />,
           </div>
         )}
       </div>

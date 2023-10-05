@@ -36,7 +36,7 @@ function Signup() {
     specialCharError: false,
   });
 
-  const [submitDisabled, setSubmitDisabled] = useState(false); // for disable button for API
+  const [submitDisabled, setSubmitDisabled] = useState(false); 
   const [showPassword, setShowPassword] = useState(false);
   const [firebaseError, setFirebaseError] = useState(null);
   const togglePasswordVisibility = () => {
@@ -44,17 +44,17 @@ function Signup() {
   };
 
   const isPasswordValid = (password) => {
-    const lengthRegex = /.{6,}/;
-    const uppercaseRegex = /[A-Z]/;
-    const lowercaseRegex = /[a-z]/;
-    const numberRegex = /[0-9]/;
-    const specialCharRegex = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/;
+    const length = /.{6,}/;
+    const uppercase = /[A-Z]/;
+    const lowercase = /[a-z]/;
+    const number = /[0-9]/;
+    const specialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/;
 
-    const lengthValid = lengthRegex.test(password);
-    const uppercaseValid = uppercaseRegex.test(password);
-    const lowercaseValid = lowercaseRegex.test(password);
-    const numberValid = numberRegex.test(password);
-    const specialCharValid = specialCharRegex.test(password);
+    const lengthValid = length.test(password);
+    const uppercaseValid = uppercase.test(password);
+    const lowercaseValid = lowercase.test(password);
+    const numberValid = number.test(password);
+    const specialCharValid = specialChar.test(password);
 
     setErrors({
       lengthError: !lengthValid,
@@ -64,13 +64,6 @@ function Signup() {
       specialCharError: !specialCharValid,
     });
 
-    return (
-      lengthValid &&
-      uppercaseValid &&
-      lowercaseValid &&
-      numberValid &&
-      specialCharValid
-    );
   };
 
   const handleSubmit = (e) => {
@@ -138,7 +131,7 @@ function Signup() {
 
               {errors.lengthError && (
                 <div className="text-red-600">
-                  Password must be at least 8 characters long.
+                  Password must be at least 6 characters long.
                 </div>
               )}
               {errors.uppercaseError && (

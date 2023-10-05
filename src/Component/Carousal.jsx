@@ -9,6 +9,7 @@ import { NextButton, PreviousButton } from "./Utils/Buttons";
 import { useState } from "react";
 import { useRecoilState } from "recoil";
 import { globaldata } from "../recoil";
+
 const Carousal = () => {
   const [all, setall] = useRecoilState(globaldata);
 
@@ -25,11 +26,10 @@ const Carousal = () => {
 
 
   const slideToNext = () => {
-    if (movies && movies.results && currentSlide < movies.results.length - 1) {
+    if (currentSlide < all?.results?.length - 1) {
       setCurrentSlide(currentSlide + 1);
     }
   };
-
 
 
   useEffect(() => {
@@ -37,6 +37,7 @@ const Carousal = () => {
       setall(movies);
     }
   }, [movies]);
+
 
   return (
     <>

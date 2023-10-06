@@ -7,7 +7,7 @@ import Customhook from "./Utils/Customhook";
 import Loading from "./Utils/Loading";
 import { useRecoilState } from "recoil";
 import { globaldata } from "../recoil";
-import { NextButton, PreviousButton } from "./Utils/Buttons";
+import { NextButton } from "./Utils/Buttons";
 
 const Toprated = () => {
   const [all, setall] = useRecoilState(globaldata);
@@ -63,7 +63,7 @@ const Toprated = () => {
           <Loading />
         ) : (
           <div>
-            <PreviousButton onClick={slideToPrev} />,
+            <NextButton onClick={slideToPrev} name={"prev"} />,
             <Slider {...settings} ref={sliderRef}>
               {all?.results?.map((item) => (
                 <div key={item.id} className="flex gap-[20px] overflow-hidden">
@@ -71,7 +71,7 @@ const Toprated = () => {
                 </div>
               ))}
             </Slider>
-            <NextButton onClick={slideToNext} />,
+            <NextButton onClick={slideToNext} name={"next"} />,
           </div>
         )}
       </div>

@@ -24,25 +24,37 @@ const Watchlist = () => {
 
   const user = auth.currentUser;
   const userUid = user.uid;
-  const watchlistKey = `watchlist_${userUid}`;
+
+
+
+  const watchlistKey = "watchlist"; 
 
   function hanldeclick(id) {
+
     const updatedWatchlist = data.filter((item) => item.id !== id);
     setdata(updatedWatchlist);
-
-    localStorage.setItem(watchlistKey, JSON.stringify(updatedWatchlist));
+  
+ 
+    const allUsersWatchlist = JSON.parse(localStorage.getItem(watchlistKey)) || {};
+  
+ 
+    allUsersWatchlist[userUid] = updatedWatchlist;
+  
+    localStorage.setItem(watchlistKey, JSON.stringify(allUsersWatchlist));
   }
+  
 
   useEffect(() => {
-    const storedWatchlist = localStorage.getItem(watchlistKey);
-    if (storedWatchlist) {
-      const parsedWatchlist = JSON.parse(storedWatchlist);
-      setdata(parsedWatchlist);
-    } else {
-      setdata([]);
-    }
+ 
+    const allUsersWatchlist = JSON.parse(localStorage.getItem(watchlistKey)) || {};
+  
+    const userWatchlist = allUsersWatchlist[userUid] || [];
+  
+    setdata(userWatchlist);
+  
     setLoading(false);
-  }, [watchlistKey, setdata]);
+  }, [watchlistKey, userUid, setdata]);
+
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);

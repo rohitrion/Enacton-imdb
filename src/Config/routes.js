@@ -11,7 +11,7 @@ const routes = [
   {
     path: "/",
     element: (
-      <Layout isShow={true}>
+      <Layout isShow={true} >
         <Home />
       </Layout>
     ),

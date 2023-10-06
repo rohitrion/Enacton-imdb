@@ -80,6 +80,7 @@ const Navbar = () => {
   useEffect(() => {
     //debounce
     const timeoutId = setTimeout(() => {
+    console.log("1st render ")
       if (input.trim() !== "") {
         setLoading(true);
         fetchMovies(input);
@@ -87,6 +88,7 @@ const Navbar = () => {
     }, 1500);
 
     return () => {
+      console.log("2nd render ")
       clearTimeout(timeoutId);
     };
   }, [input]);

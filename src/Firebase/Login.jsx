@@ -32,9 +32,7 @@ function Login() {
 
     setError("");
 
-    if (!email.trim() && !pass.trim()) {
-      return;
-    }
+
 
     if (!email || !pass) {
       setError("Please Fill All Fields");

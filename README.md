@@ -29,7 +29,7 @@
 14. Show skelaton loader for single movie page
 15. create component for input
 16. Show loader in login button
-17. Show loader in singup/logout
+17. Show loader in singup/button
 18. Check 404 page
     - do not reload the page on go to home button
 19. remove ternory operator
@@ -55,3 +55,8 @@
         - contain uppercase, lowercase, number, 1 special char, minimum length 8
         - do not call firebase API if validation fail
     
+watchList = {
+    "QgfbKkteyjatiQGXsCjx10rKHCB2":[{"adult":false,"backdrop_path":"/iiXliCeykkzmJ0Eg9RYJ7F2CWSz.jpg","genre_ids":[28,9648,53,80],"id":762430,"original_language":"en","original_title":"Retribution","overview":"When a mysterious caller puts a bomb under his car seat, Matt Turner begins a high-speed chase across the city to complete a specific series of tasks. With his kids trapped in the back seat and a bomb that will explode if they get out of the car, a normal commute becomes a twisted game of life or death as Matt follows the stranger's increasingly dangerous instructions in a race against time to save his family.","popularity":1075.645,"poster_path":"/oUmmY7QWWn7OhKlcPOnirHJpP1F.jpg","release_date":"2023-08-23","title":"Retribution","video":false,"vote_average":6.8,"vote_count":280}],
+    
+    GLUzOefZodcfgysyy1hkUOirz1n2:[{"adult":false,"backdrop_path":"/h0nmmdFAdBjQttN8Y0q825MWzZp.jpg","genre_ids":[28,53,80],"id":926393,"original_language":"en","original_title":"The Equalizer 3","overview":"Robert McCall finds himself at home in Southern Italy but he discovers his friends are under the control of local crime bosses. As events turn deadly, McCall knows what he has to do: become his friends' protector by taking on the mafia.","popularity":499.603,"poster_path":"/b0Ej6fnXAP8fK75hlyi2jKqdhHz.jpg","release_date":"2023-08-30","title":"The Equalizer 3","video":false,"vote_average":7,"vote_count":287}]
+}

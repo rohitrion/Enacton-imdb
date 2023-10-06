@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Customhook from "./Utils/Customhook";
 import Loading from "./Utils/Loading";
-import { NextButton, PreviousButton } from "./Utils/Buttons";
+import { NextButton } from "./Utils/Buttons";
 import { useRecoilState } from "recoil";
 import { globaldata } from "../recoil";
 import { useEffect } from "react";
@@ -39,7 +39,7 @@ const Movielist = () => {
     speed: 500,
     slidesToShow: 5,
     slidesToScroll: 5,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 1000,
   };
 
@@ -64,7 +64,7 @@ const Movielist = () => {
           <Loading />
         ) : (
           <div>
-            <PreviousButton onClick={slideToPrev} />,
+            <NextButton onClick={slideToPrev}  name={"prev"} />,
             <Slider {...settings} ref={sliderRef}>
               {all?.results?.map((item) => (
                 <div key={item.id} className="flex gap-[20px] overflow-hidden">
@@ -72,7 +72,7 @@ const Movielist = () => {
                 </div>
               ))}
             </Slider>
-            <NextButton onClick={slideToNext} />,
+            <NextButton onClick={slideToNext}  name={"next"} />,
           </div>
         )}
       </div>

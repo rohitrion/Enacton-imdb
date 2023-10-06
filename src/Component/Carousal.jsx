@@ -18,19 +18,20 @@ const Carousal = () => {
     all
   );
   const [currentSlide, setCurrentSlide] = useState(0);
+
+
   const slideToPrev = () => {
-    if (currentSlide > 0) {
-      setCurrentSlide(currentSlide - 1);
-    }
+    setCurrentSlide((prevSlide) =>
+      prevSlide === 0 ? all?.results?.length - 1 : prevSlide - 1
+
+    );
   };
-
-
+  
   const slideToNext = () => {
-    if (currentSlide < all?.results?.length - 1) {
-      setCurrentSlide(currentSlide + 1);
-    }
+    setCurrentSlide((prevSlide) =>
+      prevSlide === all?.results?.length - 1 ? 0 : prevSlide + 1
+    );
   };
-
 
   useEffect(() => {
     if (movies) {
@@ -44,7 +45,7 @@ const Carousal = () => {
       <div className="bg-[#000000] text-white py-8 " id="carousal-section">
         <div className="container  grid grid-cols-2  gap-[40px]">
           <div className="w-full h-full">
-            <PreviousButton onClick={slideToPrev} />
+            <NextButton onClick={slideToPrev}  name={"prev"} />
             <Carousel
               selectedItem={currentSlide}
               onChange={(index) => setCurrentSlide(index)}
@@ -84,7 +85,7 @@ const Carousal = () => {
                 ))
               )}
             </Carousel>
-            <NextButton onClick={slideToNext} />
+            <NextButton onClick={slideToNext} name={"next"} />
           </div>
           <div className="">
             <div className="font-bold text-[25px] my-4 text-[yellow]">

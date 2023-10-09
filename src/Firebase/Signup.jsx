@@ -4,7 +4,6 @@ import { auth } from "./firebase";
 import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "./Passwordinput";
 import { ThreeDots } from "react-loader-spinner";
-
 import EmailInput from "./Emailinput";
 import Nameinput from "./Nameinput";
 
@@ -63,6 +62,9 @@ function Signup() {
       numberError: !numberValid,
       specialCharError: !specialCharValid,
     });
+    return (
+      lengthValid && uppercaseValid && lowercaseValid && numberValid && specialCharValid
+    );
 
   };
 
@@ -70,7 +72,9 @@ function Signup() {
     e.preventDefault();
     if (!values.name || !values.email || !isPasswordValid(values.pass)) {
       return;
-    }
+    }else{
+
+    
     setSubmitDisabled(true);
     createUserWithEmailAndPassword(auth, values.email, values.pass)
       .then((res) => {
@@ -87,7 +91,7 @@ function Signup() {
         setFirebaseError("invalid Email ");
       });
   };
-
+  }
   return (
     <>
       <div>
@@ -183,6 +187,9 @@ function Signup() {
                   "Register Here"
                 )}
               </button>
+
+
+              
               <div className="mt-3 text-center">
                 <p className="text-gray-600">
                   Already have an account?{" "}

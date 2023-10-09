@@ -5,6 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import addimg from "../Assets/add.png";
 import Customhook from "../Component/Utils/Customhook";
 import { login, Moviedata } from "../recoil";
+import { auth } from "../Firebase/firebase";
 
 const Singlemovie = () => {
   const { id } = useParams();
@@ -17,23 +18,40 @@ const Singlemovie = () => {
     `https://api.themoviedb.org/3/movie/${id}?api_key=4e44d9029b1270a757cddc766a1bcb63&language=en-US`
   );
 
+
+  const user = auth.currentUser;
   function handleAdd() {
     if (!log) {
       navigate("/login");
     } else {
-      const itemExists = cart.some((item) => item.id === data.id);
+      const userUID = user.uid; 
+
+      const allUsersWatchlist = JSON.parse(localStorage.getItem("watchlist")) || {};
+      const userWatchlist = allUsersWatchlist[userUID] || [];
+
+      const itemExists = userWatchlist.some((item) => item.id === data.id);
 
       if (!itemExists) {
-        // If the item is not in the cart, add it
-        setCart([...cart, data]);
+  
+        const updatedWatchlist = [...userWatchlist, data];
+        allUsersWatchlist[userUID] = updatedWatchlist;
+        setCart(updatedWatchlist);
         settoggle(false);
+
+
+        localStorage.setItem("watchlist", JSON.stringify(allUsersWatchlist));
       } else {
-        const updatedCart = cart.filter((item) => item.id !== data.id);
-        setCart(updatedCart);
+        const updatedWatchlist = userWatchlist.filter((item) => item.id !== data.id);
+        allUsersWatchlist[userUID] = updatedWatchlist;
+        setCart(updatedWatchlist);
         settoggle(true);
+
+        localStorage.setItem("watchlist", JSON.stringify(allUsersWatchlist));
       }
     }
   }
+ 
+
 
   useEffect(() => {
     if(log){

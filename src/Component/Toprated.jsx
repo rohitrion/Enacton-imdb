@@ -39,6 +39,7 @@ const Toprated = () => {
       sliderRef.current.slickNext();
     }
   };
+  
   const settings = {
     dots: true,
     infinite: true,

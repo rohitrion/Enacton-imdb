@@ -50,7 +50,7 @@ const Card = ({ movie }) => {
         settoggle(false);
       }
     }
-  }, []);
+  }, [cart]);
 
   return (
     <div className="relative">

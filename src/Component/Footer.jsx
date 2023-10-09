@@ -8,7 +8,7 @@ function Footer() {
         <div>
           {Footerconfig.map((link, index) => (
             <span key={index} >
-              <a href={link.href}>{link.text}</a>
+              <a target={"_blank"} href={link.href}>{link.text}</a>
               {index < Footerconfig.length - 1 && (
                 <span className="mx-3">|</span>
               )}

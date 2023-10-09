@@ -19,42 +19,47 @@ const Watchlist = () => {
   const All = useRecoilValue(Moviedata);
   const [data, setdata] = useRecoilState(Moviedata);
   const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [sortedAndFilteredData, setSortedAndFilteredData] = useState([]);
+
+  const initialOption = localStorage.getItem("selectedOption");
+
+  const [selectedOption, setSelectedOption] = useState(
+    initialOption ? JSON.parse(initialOption) : null
+  );
+
+  const handleSelectChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+
+    localStorage.setItem("selectedOption", JSON.stringify(selectedOption));
+  };
 
   const user = auth.currentUser;
   const userUid = user.uid;
 
-
-
-  const watchlistKey = "watchlist"; 
+  const watchlistKey = "watchlist";
 
   function hanldeclick(id) {
-
     const updatedWatchlist = data.filter((item) => item.id !== id);
     setdata(updatedWatchlist);
-  
- 
-    const allUsersWatchlist = JSON.parse(localStorage.getItem(watchlistKey)) || {};
-  
- 
+
+    const allUsersWatchlist =
+      JSON.parse(localStorage.getItem(watchlistKey)) || {};
+
     allUsersWatchlist[userUid] = updatedWatchlist;
-  
+
     localStorage.setItem(watchlistKey, JSON.stringify(allUsersWatchlist));
   }
-  
 
   useEffect(() => {
- 
-    const allUsersWatchlist = JSON.parse(localStorage.getItem(watchlistKey)) || {};
-  
+    const allUsersWatchlist =
+      JSON.parse(localStorage.getItem(watchlistKey)) || {};
+
     const userWatchlist = allUsersWatchlist[userUid] || [];
-  
+
     setdata(userWatchlist);
-  
+
     setLoading(false);
   }, [watchlistKey, userUid, setdata]);
-
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -136,8 +141,9 @@ const Watchlist = () => {
               <div>
                 <Select
                   className=""
-                  defaultValue={selectedOption}
-                  onChange={setSelectedOption}
+                  defaultValue={All.length === 0 ? null : selectedOption}
+
+                  onChange={handleSelectChange}
                   options={options}
                 />
               </div>

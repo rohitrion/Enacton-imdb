@@ -1,55 +1,69 @@
-import "./App.css";
-import { BrowserRouter, Routes, Route, HashRouter } from "react-router-dom";
-import Home from "./routes/Home";
-import Navbar from "./Component/Navbar";
-import Footer from "./Component/Footer";
-import Singlemovie from "./routes/Singlemovie";
-import Watchlist from "./routes/Watchlist";
-import Login from "./Firebase/Login";
-import Signup from "./Firebase/Signup";
-import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { auth } from "./Firebase/firebase";
 import { useRecoilState } from "recoil";
-import { login } from "./recoil";
-import Error from "./routes/Error";
+import { Name, login } from "./recoil";
+import { routes } from "./Config/routes";
+import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
-  const [username, setUsername] = useState("");
-
   const [log, setLog] = useRecoilState(login);
+  const [name, setname] = useRecoilState(Name);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    console.log("Local Storage - isLoggedIn:", isLoggedIn);
+
+    if (isLoggedIn === "true") {
+      setLog(true);
+    } else {
+      setLog(false);
+    }
+
     auth.onAuthStateChanged((user) => {
       if (user) {
-        setUsername(user.displayName);
+        setname(user.displayName);
         setLog(true);
+
+        localStorage.setItem("isLoggedIn", "true");
+        console.log("User logged  isLoggedIn: true");
       } else {
-        setUsername("");
-        setLog(false);
+        setname("");
+
+        localStorage.removeItem("isLoggedIn");
+        console.log("User logged out isLoggedIn: removed");
       }
+      setIsLoading(false);
     });
   }, []);
 
   return (
-    <>
-      <HashRouter>
-        <Navbar name={username} log={log} />
+    <BrowserRouter>
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
         <Routes>
-          <Route path="/" exact element={<Home />} />
-
-          <Route path="/movie/:id" element={<Singlemovie />} />
-
-          <Route path="/watchlist" element={log ? <Watchlist /> : <Login />} />
-
-          <Route path="/login" element={<Login />} />
-
-          <Route path="/signup" element={<Signup />} />
-
-          <Route path="/*" element={<Error />} />
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                route.isLogin ? (
+                  log ? (
+                    route.element
+                  ) : (
+                    <Navigate to="/login" replace />
+                  )
+                ) : (
+                  route.element
+                )
+              }
+            />
+          ))}
         </Routes>
-        <Footer />
-      </HashRouter>
-    </>
+      )}
+    </BrowserRouter>
   );
 }
 

@@ -2,26 +2,46 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
+import { ThreeDots } from "react-loader-spinner";
+import EmailInput from "./Emailinput";
+import PasswordInput from "./Passwordinput";
+import { Logindesign } from "../Component/Utils/icons";
 
 function Login() {
   const navigate = useNavigate();
-  const [values, setValues] = useState({
-    email: "",
-    pass: "",
-  });
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
+  const [error, setError] = useState("");
+  const [submitDisable, setSubmitDisable] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [error, setError] = useState(""); 
-  const [submitDisable, setSubmitDisable] = useState(false); 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleEmailFocus = () => {
+    setError("");
+  };
+
+  const handlePasswordFocus = () => {
+    setError("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!values.email || !values.pass) {
+
+    setError("");
+
+ 
+
+    if (!email || !pass) {
       setError("Please Fill All Fields");
       return;
     }
-    setError("");
+
     setSubmitDisable(true);
-    signInWithEmailAndPassword(auth, values.email, values.pass)
+
+    signInWithEmailAndPassword(auth, email, pass)
       .then((res) => {
         setSubmitDisable(false);
         navigate("/watchlist");
@@ -29,7 +49,7 @@ function Login() {
       })
       .catch((err) => {
         setSubmitDisable(false);
-        setError(err.message);
+        setError("Invalid UserName or Password");
       });
   };
 
@@ -37,18 +57,7 @@ function Login() {
     <div className="flex items-center justify-center h-[600px] bg-gray-100">
       <div className="w-full max-w-md">
         <div className="text-center">
-          <svg
-            class="w-16 h-16 mx-auto text-indigo-600"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-            <path d="M12 14l9-5-9-5-9 5 9 5z" strokeLinejoin="round"></path>
-          </svg>
+          <Logindesign />
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Log in</h2>
           <p className="mt-2 text-sm text-gray-600">
             Or{" "}
@@ -57,62 +66,52 @@ function Login() {
             </Link>
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={(e) => handleSubmit(e)}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                onChange={(e) =>
-                  setValues((prev) => ({ ...prev, email: e.target.value }))
-                }
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                onChange={(e) =>
-                  setValues((prev) => ({ ...prev, pass: e.target.value }))
-                }
-              />
-            </div>
+            <EmailInput
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onFocus={handleEmailFocus}
+            />
+            <br />
+            <PasswordInput
+              value={pass}
+              onChange={(e) => setPass(e.target.value)}
+              showPassword={showPassword}
+              togglePasswordVisibility={togglePasswordVisibility}
+              onFocus={handlePasswordFocus}
+            />
           </div>
-
+          <div className="text-sm text-center text-[30px] text-red-600">
+            {error}
+          </div>
           <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm text-red-600">{error}</p>
-            </div>
             <div className="text-sm">
               <Link to="/reset" className="font-medium text-indigo-600">
                 Forgot password?
               </Link>
             </div>
           </div>
-
           <div>
             <button
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               disabled={submitDisable}
             >
-              Log in
+              {submitDisable ? (
+                <ThreeDots
+                  height="20"
+                  width="40"
+                  radius="9"
+                  color="#4fa94d"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              ) : (
+                "Log in"
+              )}
             </button>
           </div>
         </form>

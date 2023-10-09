@@ -3,6 +3,8 @@ import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Moviedata } from "../recoil";
 import Select from "react-select";
+import { auth } from "../Firebase/firebase";
+import { Sharebutton } from "../Component/Utils/icons";
 
 const options = [
   { value: "IMDb Rating", label: "IMDb Rating" },
@@ -17,23 +19,65 @@ const Watchlist = () => {
   const All = useRecoilValue(Moviedata);
   const [data, setdata] = useRecoilState(Moviedata);
   const [loading, setLoading] = useState(true);
-  const [selectedOption, setSelectedOption] = useState(null);
   const [sortedAndFilteredData, setSortedAndFilteredData] = useState([]);
 
-  function hanldeclick(id) {
-    const arr = data.filter((item) => item.id !== id);
+  const initialOption = localStorage.getItem("selectedOption");
 
-    setdata(arr);
+  const [selectedOption, setSelectedOption] = useState(
+    initialOption ? JSON.parse(initialOption) : null
+  );
+
+  const handleSelectChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+
+    localStorage.setItem("selectedOption", JSON.stringify(selectedOption));
+  };
+
+  const user = auth.currentUser;
+  const userUid = user.uid;
+
+  const watchlistKey = "watchlist";
+
+  function hanldeclick(id) {
+    const updatedWatchlist = data.filter((item) => item.id !== id);
+    setdata(updatedWatchlist);
+
+    const allUsersWatchlist =
+      JSON.parse(localStorage.getItem(watchlistKey)) || {};
+
+    allUsersWatchlist[userUid] = updatedWatchlist;
+
+    localStorage.setItem(watchlistKey, JSON.stringify(allUsersWatchlist));
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
+    if (All.length == 0) {
+      localStorage.removeItem("selectedOption");
+    }
+  }, [All]);
+
+  useEffect(() => {
+    const allUsersWatchlist =
+      JSON.parse(localStorage.getItem(watchlistKey)) || {};
+
+    const userWatchlist = allUsersWatchlist[userUid] || [];
+
+    setdata(userWatchlist);
+
+    setLoading(false);
+  }, [watchlistKey, userUid, setdata]);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const sortParam = queryParams.get("sort");
+
+    const selectedOption = options.find((option) => option.value === sortParam);
+    if (selectedOption) {
+      setSelectedOption(selectedOption);
+    }
   }, []);
 
   useEffect(() => {
-    //  filter the data
     const sortAndFilterData = () => {
       let newData = [...All];
       if (selectedOption) {
@@ -64,7 +108,13 @@ const Watchlist = () => {
             break;
         }
       }
-      // Update
+
+      const queryParams = new URLSearchParams();
+      if (selectedOption) {
+        queryParams.set("sort", selectedOption.value);
+      }
+      window.history.replaceState(null, null, `?${queryParams.toString()}`);
+
       setSortedAndFilteredData(newData);
     };
 
@@ -82,14 +132,7 @@ const Watchlist = () => {
             </div>
             <div className="text-black">
               <div>
-                <svg
-                  className="share-button"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="#727272"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"></path>
-                </svg>
+                <Sharebutton />
               </div>
               <h4>Share</h4>
             </div>
@@ -103,8 +146,8 @@ const Watchlist = () => {
               <div>
                 <Select
                   className=""
-                  defaultValue={selectedOption}
-                  onChange={setSelectedOption}
+                  defaultValue={All.length === 0 ? null : selectedOption}
+                  onChange={handleSelectChange}
                   options={options}
                 />
               </div>
@@ -147,33 +190,33 @@ const Watchlist = () => {
                     className="flex items-center mb-4 bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg"
                   >
                     <div className="flex-shrink-0 mr-4">
-                      <img
-                        src={`https://image.tmdb.org/t/p/original${
-                          movie ? movie.poster_path : ""
-                        }`}
-                        alt={movie ? movie.original_title : ""}
-                        className="w-20 h-auto"
-                      />
+                      {movie && movie.poster_path && (
+                        <img
+                          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                          alt={movie.original_title}
+                          className="w-20 h-auto"
+                        />
+                      )}
                     </div>
                     <div className="text-black">
                       <div className="flex justify-between">
                         <h1 className="text-lg font-semibold">
-                          {movie ? movie.original_title : ""}
+                          {movie && movie.original_title}
                         </h1>
 
                         <span
-                          className=" cursor-pointer "
-                          onClick={() => hanldeclick(movie.id)}
+                          className="cursor-pointer  "
+                          onClick={() => hanldeclick(movie?.id)}
                         >
                           ❌
                         </span>
                       </div>
                       <span className="text-yellow-500">
-                        ⭐ {movie ? movie.vote_average : ""}
+                        ⭐ {movie && movie.vote_average}
                       </span>
 
                       <p className="text-gray-600 mt-2">
-                        {movie ? movie.overview : ""}
+                        {movie && movie.overview}
                       </p>
                     </div>
                   </div>

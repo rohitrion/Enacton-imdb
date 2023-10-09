@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "./firebase";
 import { Link, useNavigate } from "react-router-dom";
+import PasswordInput from "./Passwordinput";
+import { ThreeDots } from "react-loader-spinner";
+import EmailInput from "./Emailinput";
+import Nameinput from "./Nameinput";
 
 function Signup() {
   const navigate = useNavigate();
@@ -11,19 +15,69 @@ function Signup() {
     pass: "",
   });
 
-  const [error, setError] = useState(""); // for error state
-  const [submitDisabled, setSubmitDisabled] = useState(false); // for disable button for API
+  const handleEmailFocus = () => {
+    setFirebaseError("");
+  };
 
-  const handleSubmit = () => {
-    if (!values.name || !values.email || !values.pass) {
-      setError("Please Fill All Fields");
-      return
-    }
-    setError("");
+  const handlePasswordFocus = () => {
+    setFirebaseError("");
+  };
+
+  const handlenameFocus = () => {
+    setFirebaseError("");
+  };
+
+  const [errors, setErrors] = useState({
+    lengthError: false,
+    uppercaseError: false,
+    lowercaseError: false,
+    numberError: false,
+    specialCharError: false,
+  });
+
+  const [submitDisabled, setSubmitDisabled] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
+  const [firebaseError, setFirebaseError] = useState(null);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const isPasswordValid = (password) => {
+    const length = /.{6,}/;
+    const uppercase = /[A-Z]/;
+    const lowercase = /[a-z]/;
+    const number = /[0-9]/;
+    const specialChar = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/;
+
+    const lengthValid = length.test(password);
+    const uppercaseValid = uppercase.test(password);
+    const lowercaseValid = lowercase.test(password);
+    const numberValid = number.test(password);
+    const specialCharValid = specialChar.test(password);
+
+    setErrors({
+      lengthError: !lengthValid,
+      uppercaseError: !uppercaseValid,
+      lowercaseError: !lowercaseValid,
+      numberError: !numberValid,
+      specialCharError: !specialCharValid,
+    });
+    return (
+      lengthValid && uppercaseValid && lowercaseValid && numberValid && specialCharValid
+    );
+
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!values.name || !values.email || !isPasswordValid(values.pass)) {
+      return;
+    }else{
+
+    
     setSubmitDisabled(true);
     createUserWithEmailAndPassword(auth, values.email, values.pass)
       .then((res) => {
-        setSubmitDisabled(false);
         const user = res.user;
         updateProfile(user, {
           displayName: values.name,
@@ -33,10 +87,11 @@ function Signup() {
       })
       .catch((err) => {
         setSubmitDisabled(false);
-        setError(err.message);
+        console.error(err);
+        setFirebaseError("invalid Email ");
       });
   };
-
+  }
   return (
     <>
       <div>
@@ -45,55 +100,105 @@ function Signup() {
             <h2 className="text-2xl font-semibold text-center">
               Create an account
             </h2>
-            <div>
-              <input
-                className="border border-gray-300 p-2 w-full rounded-md"
-                placeholder="Your Name"
-                type="text"
-                value={values.name}
-                onChange={(e) => {
-                  setValues({ ...values, name: e.target.value });
-                }}
-              />
-            </div>
-            <div>
-              <input
-                className="border border-gray-300 p-2 w-full rounded-md"
-                placeholder="Your Email"
-                type="email"
-                value={values.email}
-                onChange={(e) => {
-                  setValues({ ...values, email: e.target.value });
-                }}
-              />
-            </div>
-            <div>
-              <input
-                className="border border-gray-300 p-2 w-full rounded-md"
-                placeholder="Password"
-                type="password"
-                value={values.pass}
-                onChange={(e) => {
-                  setValues({ ...values, pass: e.target.value });
-                }}
-              />
-            </div>
-            <div className="text-red-600 text-center">{error}</div>
-            <button
-              className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-md w-full"
-              disabled={submitDisabled}
-              onClick={handleSubmit}
-            >
-              Register
-            </button>
-            <div className="mt-3 text-center">
-              <p className="text-gray-600">
-                Already have an account?{" "}
-                <Link to="/login">
-                  <span className="text-blue-500 font-semibold">Sign In</span>
-                </Link>
-              </p>
-            </div>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <Nameinput
+                  value={values.name}
+                  onFocus={handlenameFocus}
+                  onChange={(e) => {
+                    setValues({ ...values, name: e.target.value });
+                  }}
+                />
+              </div>
+              <br />
+              <div>
+                <EmailInput
+                  value={values.email}
+                  onFocus={handleEmailFocus}
+                  onChange={(e) => {
+                    setValues({ ...values, email: e.target.value });
+                  }}
+                />
+              </div>
+              <br />
+              <div className="w-full rounded-md mb-5">
+                <PasswordInput
+                  value={values.pass}
+                  onChange={(e) => {
+                    setValues({ ...values, pass: e.target.value });
+                  }}
+                  showPassword={showPassword}
+                  togglePasswordVisibility={togglePasswordVisibility}
+                  onFocus={handlePasswordFocus}
+                />
+              </div>
+
+              {errors.lengthError && (
+                <div className="text-red-600">
+                  Password must be at least 6 characters long.
+                </div>
+              )}
+              {errors.uppercaseError && (
+                <div className="text-red-600">
+                  Password must contain at least one uppercase letter.
+                </div>
+              )}
+              {errors.lowercaseError && (
+                <div className="text-red-600">
+                  Password must contain at least one lowercase letter.
+                </div>
+              )}
+              {errors.numberError && (
+                <div className="text-red-600">
+                  Password must contain at least one number.
+                </div>
+              )}
+              {errors.specialCharError && (
+                <div className="text-red-600">
+                  Password must contain at least one special character.
+                </div>
+              )}
+              <div className="text-center mb-2 ">
+                {" "}
+                {firebaseError && (
+                  <div className="text-red-600">{firebaseError}</div>
+                )}
+              </div>
+
+              <button
+                className="bg-gradient-to-r from-blue-500 to-purple-500 text-white p-3 rounded-md w-full text-center relative"
+                disabled={submitDisabled}
+                type="submit"
+              >
+                {submitDisabled ? (
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <ThreeDots
+                      height={20}
+                      width={40}
+                      radius={9}
+                      color="black"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClassName=""
+                      visible={true}
+                    />
+                  </div>
+                ) : (
+                  "Register Here"
+                )}
+              </button>
+
+
+              
+              <div className="mt-3 text-center">
+                <p className="text-gray-600">
+                  Already have an account?{" "}
+                  <Link to="/login">
+                    <span className="text-blue-500 font-semibold">Sign In</span>
+                  </Link>
+                </p>
+              </div>
+            </form>
           </div>
         </div>
       </div>

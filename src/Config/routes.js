@@ -58,7 +58,7 @@ const routes = [
   {
     path: "/movie/:id",
     element: (
-      <Layout isShow={false}>
+      <Layout isShow={true}>
         <Singlemovie />
       </Layout>
     ),

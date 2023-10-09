@@ -51,6 +51,12 @@ const Watchlist = () => {
   }
 
   useEffect(() => {
+    if (All.length == 0) {
+      localStorage.removeItem("selectedOption");
+    }
+  }, [All]);
+
+  useEffect(() => {
     const allUsersWatchlist =
       JSON.parse(localStorage.getItem(watchlistKey)) || {};
 
@@ -66,7 +72,6 @@ const Watchlist = () => {
     const sortParam = queryParams.get("sort");
 
     const selectedOption = options.find((option) => option.value === sortParam);
-
     if (selectedOption) {
       setSelectedOption(selectedOption);
     }
@@ -142,7 +147,6 @@ const Watchlist = () => {
                 <Select
                   className=""
                   defaultValue={All.length === 0 ? null : selectedOption}
-
                   onChange={handleSelectChange}
                   options={options}
                 />
@@ -201,7 +205,7 @@ const Watchlist = () => {
                         </h1>
 
                         <span
-                          className="cursor-pointer"
+                          className="cursor-pointer  "
                           onClick={() => hanldeclick(movie?.id)}
                         >
                           ❌

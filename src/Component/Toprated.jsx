@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Customhook from "./Utils/Customhook";
 import Loading from "./Utils/Loading";
 import { useRecoilState } from "recoil";
+
 import { globaldata } from "../recoil";
 import { NextButton } from "./Utils/Buttons";
 
@@ -65,6 +66,7 @@ const Toprated = () => {
         ) : (
           <div>
             <NextButton onClick={slideToPrev} name={"prev"} />,
+            <br/>      <br/>    
             <Slider {...settings} ref={sliderRef}>
               {all?.results?.map((item) => (
                 <div key={item.id} className="flex gap-[20px] overflow-hidden">
@@ -72,6 +74,7 @@ const Toprated = () => {
                 </div>
               ))}
             </Slider>
+            <br/>
             <NextButton onClick={slideToNext} name={"next"} />,
           </div>
         )}

@@ -65,6 +65,7 @@ const Movielist = () => {
         ) : (
           <div>
             <NextButton onClick={slideToPrev}  name={"prev"} />,
+            <br/> <br/>
             <Slider {...settings} ref={sliderRef}>
               {all?.results?.map((item) => (
                 <div key={item.id} className="flex gap-[20px] overflow-hidden">
@@ -72,6 +73,7 @@ const Movielist = () => {
                 </div>
               ))}
             </Slider>
+            <br/>
             <NextButton onClick={slideToNext}  name={"next"} />,
           </div>
         )}

@@ -5,7 +5,7 @@ import { Moviedata } from "../recoil";
 import Select from "react-select";
 import { auth } from "../Firebase/firebase";
 import { Sharebutton } from "../Component/Utils/icons";
-
+import { Link, useNavigate } from "react-router-dom";
 const options = [
   { value: "IMDb Rating", label: "IMDb Rating" },
   { value: "Popularity", label: "Popularity" },
@@ -185,6 +185,7 @@ const Watchlist = () => {
             ) : (
               <div>
                 {sortedAndFilteredData.map((movie, index) => (
+                    <Link to={`/movie/${movie.id}`}>
                   <div
                     key={index}
                     className="flex items-center mb-4 bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg"
@@ -220,6 +221,7 @@ const Watchlist = () => {
                       </p>
                     </div>
                   </div>
+                  </Link>
                 ))}
               </div>
             )}

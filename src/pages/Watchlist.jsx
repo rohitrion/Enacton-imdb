@@ -185,12 +185,14 @@ const Watchlist = () => {
             ) : (
               <div>
                 {sortedAndFilteredData.map((movie, index) => (
-                    <Link to={`/movie/${movie.id}`}>
+                    
                   <div
                     key={index}
                     className="flex items-center mb-4 bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg"
                   >
+                    
                     <div className="flex-shrink-0 mr-4">
+                    <Link to={`/movie/${movie.id}`}>
                       {movie && movie.poster_path && (
                         <img
                           src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
@@ -198,13 +200,15 @@ const Watchlist = () => {
                           className="w-20 h-auto"
                         />
                       )}
+                        </Link>
                     </div>
+                  
                     <div className="text-black">
                       <div className="flex justify-between">
                         <h1 className="text-lg font-semibold">
                           {movie && movie.original_title}
                         </h1>
-
+                     
                         <span
                           className="cursor-pointer  "
                           onClick={() => hanldeclick(movie?.id)}
@@ -221,7 +225,7 @@ const Watchlist = () => {
                       </p>
                     </div>
                   </div>
-                  </Link>
+        
                 ))}
               </div>
             )}

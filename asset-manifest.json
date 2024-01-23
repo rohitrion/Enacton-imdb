@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/Enacton-imdbs/static/css/main.b6381bae.css",
-    "main.js": "/Enacton-imdbs/static/js/main.aa8f6f4b.js",
-    "static/media/slick.svg": "/Enacton-imdbs/static/media/slick.2630a3e3eab21c607e21.svg",
-    "static/media/slick.eot": "/Enacton-imdbs/static/media/slick.a4e97f5a2a64f0ab1323.eot",
-    "static/media/slick.ttf": "/Enacton-imdbs/static/media/slick.c94f7671dcc99dce43e2.ttf",
-    "static/media/slick.woff": "/Enacton-imdbs/static/media/slick.295183786cd8a1389865.woff",
-    "index.html": "/Enacton-imdbs/index.html",
-    "main.b6381bae.css.map": "/Enacton-imdbs/static/css/main.b6381bae.css.map",
-    "main.aa8f6f4b.js.map": "/Enacton-imdbs/static/js/main.aa8f6f4b.js.map"
+    "main.css": "/Enacton-imdb/static/css/main.3efb738c.css",
+    "main.js": "/Enacton-imdb/static/js/main.bcf485f5.js",
+    "static/media/slick.svg": "/Enacton-imdb/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/Enacton-imdb/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/Enacton-imdb/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/Enacton-imdb/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/Enacton-imdb/index.html",
+    "main.3efb738c.css.map": "/Enacton-imdb/static/css/main.3efb738c.css.map",
+    "main.bcf485f5.js.map": "/Enacton-imdb/static/js/main.bcf485f5.js.map"
   },
   "entrypoints": [
-    "static/css/main.b6381bae.css",
-    "static/js/main.aa8f6f4b.js"
+    "static/css/main.3efb738c.css",
+    "static/js/main.bcf485f5.js"
   ]
 }
